@@ -1,4 +1,4 @@
-connection: "snowflake-account-usage-dev"
+connection: "account_usage_dev"
 
 # include all the views
 include: "*.view"
