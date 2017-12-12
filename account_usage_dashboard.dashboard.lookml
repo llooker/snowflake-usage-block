@@ -152,8 +152,8 @@
     explore: query_history
     type: single_value
     fields:
-    - query_history.current_month_job_count
-    - query_history.prior_month_job_count
+    - query_history.current_mtd_job_count
+    - query_history.prior_mtd_job_count
     limit: 500
     query_timezone: UTC
     custom_color_enabled: false
@@ -198,8 +198,8 @@
     type: looker_column
     fields:
     - query_history.warehouse_name
-    - query_history.prior_month_job_count
-    - query_history.current_month_job_count
+    - query_history.prior_mtd_job_count
+    - query_history.current_mtd_job_count
     sorts:
     - query_history.warehouse_name desc
     limit: 500

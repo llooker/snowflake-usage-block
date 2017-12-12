@@ -144,19 +144,32 @@ view: query_history {
     sql: ${TABLE}.WAREHOUSE_TYPE ;;
   }
 
+  dimension: is_prior_month_mtd {
+    type: yesno
+    sql:  EXTRACT(month, ${start_raw}) = EXTRACT(month, current_timestamp()) - 1
+            and ${start_raw} <= dateadd(month, -1, current_timestamp())  ;;
+  }
+
   measure: job_count {
     type: count
     drill_fields: [detail*]
   }
 
-  measure: current_month_job_count {
+  measure: current_mtd_job_count {
     type: count
     filters: {field: start_date value: "this month"}
   }
 
-  measure: prior_month_job_count {
+  measure: prior_month_total_job_count {
     type: count
     filters: {field: start_date value: "last month"}
+    value_format_name: decimal_0
+  }
+
+  measure: prior_mtd_job_count {
+    type: count
+    filters: {field: is_prior_month_mtd value: "yes"}
+    value_format_name:  decimal_0
   }
 
   measure: average_execution_time {
@@ -181,7 +194,7 @@ view: query_history {
   measure: prior_mtd_avg_exec_time {
     type:  average
     sql:  ${execution_time} ;;
-    filters: {field: start_date value: "last month"}
+    filters: {field: is_prior_month_mtd value: "yes"}
     value_format_name: decimal_2
   }
 
