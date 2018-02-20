@@ -1,5 +1,5 @@
 view: functions {
-  sql_table_name: ACCOUNT_USAGE_DEV.FUNCTIONS ;;
+  sql_table_name: ACCOUNT_USAGE.FUNCTIONS ;;
 
   dimension: argument_signature {
     type: string
@@ -32,7 +32,7 @@ view: functions {
       quarter,
       year
     ]
-    sql: ${TABLE}.CREATED_AT ;;
+    sql: ${TABLE}.CREATED ;;
   }
 
   dimension: data_type {
@@ -51,7 +51,7 @@ view: functions {
       quarter,
       year
     ]
-    sql: ${TABLE}.DELETED_AT ;;
+    sql: ${TABLE}.DELETED ;;
   }
 
   dimension: function_catalog {
@@ -86,7 +86,7 @@ view: functions {
 
   dimension: is_null_call {
     type: yesno
-    sql: ${TABLE}.IS_NULL_CALL ;;
+    sql: CASE WHEN ${TABLE}.IS_NULL_CALL = 'YES' THEN TRUE ELSE FALSE END ;;
   }
 
   dimension_group: last_altered {
@@ -100,7 +100,7 @@ view: functions {
       quarter,
       year
     ]
-    sql: ${TABLE}.LAST_ALTERED_AT ;;
+    sql: ${TABLE}.LAST_ALTERED ;;
   }
 
   dimension: numeric_precision {

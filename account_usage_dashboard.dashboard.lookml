@@ -10,16 +10,16 @@
     fields:
     - warehouse_metering_history.total_credits_used
     - warehouse_metering_history.warehouse_name
-    - warehouse_metering_history.read_hour_month
+    - warehouse_metering_history.start_month
     pivots:
     - warehouse_metering_history.warehouse_name
     fill_fields:
-    - warehouse_metering_history.read_hour_month
+    - warehouse_metering_history.start_month
     filters:
-      warehouse_metering_history.read_hour_date: 12 months ago for 12 months
+      warehouse_metering_history.start_date: 12 months ago for 12 months
     sorts:
     - warehouse_metering_history.warehouse_name
-    - warehouse_metering_history.read_hour_month desc
+    - warehouse_metering_history.start_month desc
     limit: 500
     query_timezone: UTC
     stacking: normal
@@ -56,13 +56,13 @@
     type: looker_line
     fields:
     - storage_usage.billable_tb
-    - storage_usage.read_month
+    - storage_usage.usage_month
     fill_fields:
-    - storage_usage.read_month
+    - storage_usage.usage_month
     filters:
-      storage_usage.read_date: 12 months ago for 12 months
+      storage_usage.usage_date: 12 months ago for 12 months
     sorts:
-    - storage_usage.read_month desc
+    - storage_usage.usage_month desc
     limit: 500
     query_timezone: UTC
     stacking: ''
@@ -102,17 +102,17 @@
     type: looker_column
     fields:
     - warehouse_metering_history.warehouse_name
-    - warehouse_metering_history.read_hour_month
+    - warehouse_metering_history.start_month
     - warehouse_metering_history.average_credits_used
     pivots:
     - warehouse_metering_history.warehouse_name
     fill_fields:
-    - warehouse_metering_history.read_hour_month
+    - warehouse_metering_history.start_month
     filters:
-      warehouse_metering_history.read_hour_date: 12 months ago for 12 months
+      warehouse_metering_history.start_date: 12 months ago for 12 months
     sorts:
     - warehouse_metering_history.warehouse_name 0
-    - warehouse_metering_history.read_hour_month
+    - warehouse_metering_history.start_month
     limit: 500
     query_timezone: UTC
     stacking: ''
@@ -410,7 +410,7 @@
     - warehouse_metering_history.warehouse_name
     - warehouse_metering_history.total_credits_used
     filters:
-      warehouse_metering_history.read_hour_date: 1 months
+      warehouse_metering_history.start_date: 1 months
     sorts:
     - warehouse_metering_history.total_credits_used desc
     limit: 500
@@ -454,13 +454,13 @@
     fields:
     - warehouse_metering_history.warehouse_name
     - warehouse_metering_history.total_credits_used
-    - warehouse_metering_history.read_hour_date
+    - warehouse_metering_history.start_date
     pivots:
     - warehouse_metering_history.warehouse_name
     fill_fields:
-    - warehouse_metering_history.read_hour_date
+    - warehouse_metering_history.start_date
     filters:
-      warehouse_metering_history.read_hour_date: 1 months
+      warehouse_metering_history.start_date: 1 months
     sorts:
     - warehouse_metering_history.total_credits_used desc 0
     - warehouse_metering_history.warehouse_name
@@ -504,11 +504,11 @@
     type: looker_area
     fields:
     - storage_usage.billable_tb
-    - storage_usage.read_month
+    - storage_usage.usage_month
     fill_fields:
-    - storage_usage.read_month
+    - storage_usage.usage_month
     sorts:
-    - storage_usage.read_month
+    - storage_usage.usage_month
     limit: 500
     query_timezone: UTC
     stacking: ''

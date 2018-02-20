@@ -1,11 +1,11 @@
 view: table_storage_metrics {
-  sql_table_name: ACCOUNT_USAGE_DEV.TABLE_STORAGE_METRICS ;;
+  sql_table_name: ACCOUNT_USAGE.TABLE_STORAGE_METRICS ;;
 
-  dimension: id {
-    primary_key: yes
-    type: number
-    sql: ${TABLE}.ID ;;
-  }
+#   dimension: id {
+#     primary_key: yes
+#     type: number
+#     sql: ${TABLE}.ID ;;
+#   }
 
   dimension: active_bytes {
     type: string
@@ -15,6 +15,34 @@ view: table_storage_metrics {
   dimension: active_rows {
     type: string
     sql: ${TABLE}.ACTIVE_ROWS ;;
+  }
+
+  dimension_group: catalog_created {
+    type: time
+    timeframes: [
+      raw,
+      time,
+      date,
+      week,
+      month,
+      quarter,
+      year
+    ]
+    sql: ${TABLE}.CATALOG_CREATED ;;
+  }
+
+  dimension_group: catalog_dropped {
+    type: time
+    timeframes: [
+      raw,
+      time,
+      date,
+      week,
+      month,
+      quarter,
+      year
+    ]
+    sql: ${TABLE}.CATALOG_DROPPED ;;
   }
 
   dimension: clone_group_id {
@@ -27,34 +55,6 @@ view: table_storage_metrics {
     sql: ${TABLE}.COMMENT ;;
   }
 
-  dimension_group: created {
-    type: time
-    timeframes: [
-      raw,
-      time,
-      date,
-      week,
-      month,
-      quarter,
-      year
-    ]
-    sql: ${TABLE}.CREATED_AT ;;
-  }
-
-  dimension_group: deleted {
-    type: time
-    timeframes: [
-      raw,
-      time,
-      date,
-      week,
-      month,
-      quarter,
-      year
-    ]
-    sql: ${TABLE}.DELETED_AT ;;
-  }
-
   dimension: failsafe_bytes {
     type: string
     sql: ${TABLE}.FAILSAFE_BYTES ;;
@@ -62,10 +62,15 @@ view: table_storage_metrics {
 
   dimension: is_transient {
     type: yesno
-    sql: ${TABLE}.IS_TRANSIENT ;;
+    sql: CASE WHEN ${TABLE}.IS_TRANSIENT = 'YES' THEN TRUE ELSE FALSE END ;;
   }
 
-  dimension_group: last_altered {
+  dimension: owned_active_and_time_travel_bytes {
+    type: number
+    sql: ${TABLE}.OWNED_ACTIVE_AND_TIME_TRAVEL_BYTES ;;
+  }
+
+  dimension_group: schema_created {
     type: time
     timeframes: [
       raw,
@@ -76,17 +81,69 @@ view: table_storage_metrics {
       quarter,
       year
     ]
-    sql: ${TABLE}.LAST_ALTERED_AT ;;
+    sql: ${TABLE}.SCHEMA_CREATED ;;
   }
 
-  dimension: owned_active_and_time_travel_bytes {
-    type: number
-    sql: ${TABLE}.OWNED_ACTIVE_AND_TIME_TRAVEL_BYTES ;;
+  dimension_group: schema_dropped {
+    type: time
+    timeframes: [
+      raw,
+      time,
+      date,
+      week,
+      month,
+      quarter,
+      year
+    ]
+    sql: ${TABLE}.SCHEMA_DROPPED ;;
   }
+
 
   dimension: table_catalog {
     type: string
     sql: ${TABLE}.TABLE_CATALOG ;;
+  }
+
+  dimension_group: table_created {
+    type: time
+    timeframes: [
+      raw,
+      time,
+      date,
+      week,
+      month,
+      quarter,
+      year
+    ]
+    sql: ${TABLE}.TABLE_CREATED ;;
+  }
+
+  dimension_group: table_dropped {
+    type: time
+    timeframes: [
+      raw,
+      time,
+      date,
+      week,
+      month,
+      quarter,
+      year
+    ]
+    sql: ${TABLE}.TABLE_DROPPED ;;
+  }
+
+  dimension_group: table_entered_failsafe {
+    type: time
+    timeframes: [
+      raw,
+      time,
+      date,
+      week,
+      month,
+      quarter,
+      year
+    ]
+    sql: ${TABLE}.TABLE_ENTERED_FAILSAFE ;;
   }
 
   dimension: table_name {
@@ -106,6 +163,6 @@ view: table_storage_metrics {
 
   measure: count {
     type: count
-    drill_fields: [id, table_name]
+    drill_fields: [table_name]
   }
 }

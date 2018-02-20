@@ -1,5 +1,5 @@
 view: sequences {
-  sql_table_name: ACCOUNT_USAGE_DEV.SEQUENCES ;;
+  sql_table_name: ACCOUNT_USAGE.SEQUENCES ;;
 
   dimension: comment {
     type: string
@@ -17,7 +17,7 @@ view: sequences {
       quarter,
       year
     ]
-    sql: ${TABLE}.CREATED_AT ;;
+    sql: ${TABLE}.CREATED ;;
   }
 
   dimension: cycle_option {
@@ -41,7 +41,7 @@ view: sequences {
       quarter,
       year
     ]
-    sql: ${TABLE}.DELETED_AT ;;
+    sql: ${TABLE}.DELETED ;;
   }
 
   dimension: increment {
@@ -60,7 +60,7 @@ view: sequences {
       quarter,
       year
     ]
-    sql: ${TABLE}.LAST_ALTERED_AT ;;
+    sql: ${TABLE}.LAST_ALTERED ;;
   }
 
   dimension: maximum_value {

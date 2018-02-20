@@ -1,5 +1,5 @@
 view: views {
-  sql_table_name: ACCOUNT_USAGE_DEV.VIEWS ;;
+  sql_table_name: ACCOUNT_USAGE.VIEWS ;;
 
   dimension: check_option {
     type: string
@@ -22,7 +22,7 @@ view: views {
       quarter,
       year
     ]
-    sql: ${TABLE}.CREATED_AT ;;
+    sql: ${TABLE}.CREATED ;;
   }
 
   dimension_group: deleted {
@@ -36,22 +36,22 @@ view: views {
       quarter,
       year
     ]
-    sql: ${TABLE}.DELETED_AT ;;
+    sql: ${TABLE}.DELETED ;;
   }
 
   dimension: insertable_into {
     type: yesno
-    sql: ${TABLE}.INSERTABLE_INTO ;;
+    sql: CASE WHEN ${TABLE}.INSERTABLE_INTO = 'YES' THEN TRUE ELSE FALSE END ;;
   }
 
   dimension: is_secure {
     type: yesno
-    sql: ${TABLE}.IS_SECURE ;;
+    sql: CASE WHEN ${TABLE}.IS_SECURE = 'YES' THEN TRUE ELSE FALSE END ;;
   }
 
   dimension: is_updatable {
     type: yesno
-    sql: ${TABLE}.IS_UPDATABLE ;;
+    sql: CASE WHEN ${TABLE}.IS_UPDATABLE = 'YES' THEN TRUE ELSE FALSE END ;;
   }
 
   dimension_group: last_altered {
@@ -65,7 +65,7 @@ view: views {
       quarter,
       year
     ]
-    sql: ${TABLE}.LAST_ALTERED_AT ;;
+    sql: ${TABLE}.LAST_ALTERED ;;
   }
 
   dimension: table_catalog {

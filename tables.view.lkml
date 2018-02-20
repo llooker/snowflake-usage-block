@@ -1,11 +1,11 @@
 view: tables {
-  sql_table_name: ACCOUNT_USAGE_DEV.TABLES ;;
+  sql_table_name: ACCOUNT_USAGE.TABLES ;;
 
-  dimension: id {
-    primary_key: yes
-    type: number
-    sql: ${TABLE}.ID ;;
-  }
+#   dimension: id {
+#     primary_key: yes
+#     type: number
+#     sql: ${TABLE}.ID ;;
+#   }
 
   dimension: bytes {
     type: string
@@ -38,7 +38,7 @@ view: tables {
       quarter,
       year
     ]
-    sql: ${TABLE}.CREATED_AT ;;
+    sql: ${TABLE}.CREATED ;;
   }
 
   dimension_group: deleted {
@@ -52,22 +52,22 @@ view: tables {
       quarter,
       year
     ]
-    sql: ${TABLE}.DELETED_AT ;;
+    sql: ${TABLE}.DELETED ;;
   }
 
   dimension: is_insertable_into {
     type: yesno
-    sql: ${TABLE}.IS_INSERTABLE_INTO ;;
+    sql: CASE WHEN ${TABLE}.IS_INSERTABLE_INTO = 'YES' THEN TRUE ELSE FALSE END ;;
   }
 
   dimension: is_transient {
     type: yesno
-    sql: ${TABLE}.IS_TRANSIENT ;;
+    sql: CASE WHEN ${TABLE}.IS_TRANSIENT = 'YES' THEN TRUE ELSE FALSE END ;;
   }
 
   dimension: is_typed {
     type: yesno
-    sql: ${TABLE}.IS_TYPED ;;
+    sql: CASE WHEN ${TABLE}.IS_TYPED = 'YES' THEN TRUE ELSE FALSE END ;;
   }
 
   dimension_group: last_altered {
@@ -81,7 +81,7 @@ view: tables {
       quarter,
       year
     ]
-    sql: ${TABLE}.LAST_ALTERED_AT ;;
+    sql: ${TABLE}.LAST_ALTERED ;;
   }
 
   dimension: reference_generation {
@@ -141,6 +141,9 @@ view: tables {
 
   measure: count {
     type: count
-    drill_fields: [id, table_name, self_referencing_column_name, user_defind_type_name]
+    drill_fields: [#id,
+                   table_name,
+                   self_referencing_column_name,
+                   user_defind_type_name]
   }
 }

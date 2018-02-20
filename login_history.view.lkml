@@ -1,5 +1,5 @@
 view: login_history {
-  sql_table_name: ACCOUNT_USAGE_DEV.LOGIN_HISTORY ;;
+  sql_table_name: ACCOUNT_USAGE.LOGIN_HISTORY ;;
 
   dimension: client_ip {
     type: string
@@ -9,6 +9,17 @@ view: login_history {
   dimension: error_code {
     type: number
     sql: ${TABLE}.ERROR_CODE ;;
+  }
+
+  dimension: error_message {
+    type: string
+    sql: ${TABLE}.ERROR_MESSAGE ;;
+  }
+
+  dimension: event_id {
+    primary_key: yes
+    type: number
+    sql: ${TABLE}.EVENT_ID ;;
   }
 
   dimension_group: event {
@@ -27,13 +38,7 @@ view: login_history {
       year,
       second
     ]
-    sql: ${TABLE}.EVENT_AT ;;
-  }
-
-  dimension: event_id {
-    primary_key: yes
-    type: number
-    sql: ${TABLE}.EVENT_ID ;;
+    sql: ${TABLE}.EVENT_TIMESTAMP ;;
   }
 
   dimension: event_type {
@@ -48,7 +53,7 @@ view: login_history {
 
   dimension: is_success {
     type: yesno
-    sql: ${TABLE}.IS_SUCCESS ;;
+    sql: CASE WHEN ${TABLE}.IS_SUCCESS = 'YES' THEN TRUE ELSE FALSE END;;
   }
 
   dimension: related_event_id {

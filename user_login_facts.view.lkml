@@ -3,13 +3,14 @@ view: user_login_facts {
   derived_table: {
     sql: select user_name
       , count(*) as failed_logins
-      , timediff(seconds, event_at, lead(event_at) over(partition by user_name order by event_at)) as seconds_between_login_attempts
+      , timediff(seconds, event_timestamp, lead(event_timestamp) over(partition by user_name order by event_timestamp)) as seconds_between_login_attempts
       , event_at
-      from account_usage_dev.login_history
-      where not is_success
-      group by user_name, event_at
-          ;;
+      from account_usage.login_history
+      where not (CASE WHEN is_success = 'YES' THEN TRUE ELSE FALSE END)
+      group by user_name, event_timestamp;;
+      #persist_for: "1 hour"
   }
+
 
   dimension: login_name {
     hidden: no

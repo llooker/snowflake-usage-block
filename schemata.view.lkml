@@ -1,11 +1,11 @@
 view: schemata {
-  sql_table_name: ACCOUNT_USAGE_DEV.SCHEMATA ;;
+  sql_table_name: ACCOUNT_USAGE.SCHEMATA ;;
 
-  dimension: id {
-    primary_key: yes
-    type: number
-    sql: ${TABLE}.ID ;;
-  }
+#   dimension: id {
+#     primary_key: yes
+#     type: number
+#     sql: ${TABLE}.ID ;;
+#   }
 
   dimension: comment {
     type: string
@@ -23,19 +23,19 @@ view: schemata {
       quarter,
       year
     ]
-    sql: ${TABLE}.CREATED_AT ;;
+    sql: ${TABLE}.CREATED ;;
   }
 
-  dimension: database_id {
-    type: string
-    # hidden: yes
-    sql: ${TABLE}.DATABASE_ID ;;
-  }
-
-  dimension: database_name {
-    type: string
-    sql: ${TABLE}.DATABASE_NAME ;;
-  }
+#   dimension: database_id {
+#     type: string
+#     # hidden: yes
+#     sql: ${TABLE}.DATABASE_ID ;;
+#   }
+#
+#   dimension: database_name {
+#     type: string
+#     sql: ${TABLE}.DATABASE_NAME ;;
+#   }
 
   dimension: default_character_set_catalog {
     type: string
@@ -63,12 +63,12 @@ view: schemata {
       quarter,
       year
     ]
-    sql: ${TABLE}.DELETED_AT ;;
+    sql: ${TABLE}.DELETED ;;
   }
 
   dimension: is_transient {
     type: yesno
-    sql: ${TABLE}.IS_TRANSIENT ;;
+    sql: CASE WHEN ${TABLE}.IS_TRANSIENT = 'YES' THEN TRUE ELSE FALSE END ;;
   }
 
   dimension_group: last_altered {
@@ -82,7 +82,7 @@ view: schemata {
       quarter,
       year
     ]
-    sql: ${TABLE}.LAST_ALTERED_AT ;;
+    sql: ${TABLE}.LAST_ALTERED ;;
   }
 
   dimension: schema_name {
@@ -108,12 +108,12 @@ view: schemata {
   # ----- Sets of fields for drilling ------
   set: detail {
     fields: [
-      id,
+      #id,
       schema_name,
-      database_name,
+      #database_name,
       default_character_set_name,
-      databases.id,
-      databases.name
+      #databases.id,
+      databases.database_name
     ]
   }
 }

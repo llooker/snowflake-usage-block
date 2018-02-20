@@ -1,5 +1,5 @@
 view: file_formats {
-  sql_table_name: ACCOUNT_USAGE_DEV.FILE_FORMATS ;;
+  sql_table_name: ACCOUNT_USAGE.FILE_FORMATS ;;
 
   dimension: binary_format {
     type: string
@@ -27,12 +27,26 @@ view: file_formats {
       quarter,
       year
     ]
-    sql: ${TABLE}.CREATED_AT ;;
+    sql: ${TABLE}.CREATED ;;
   }
 
   dimension: date_format {
     type: string
     sql: ${TABLE}.DATE_FORMAT ;;
+  }
+
+  dimension_group: deleted {
+    type: time
+    timeframes: [
+      raw,
+      time,
+      date,
+      week,
+      month,
+      quarter,
+      year
+    ]
+    sql: ${TABLE}.DELETED ;;
   }
 
   dimension: error_on_column_count_mismatch {
@@ -96,7 +110,7 @@ view: file_formats {
       quarter,
       year
     ]
-    sql: ${TABLE}.LAST_ALTERED_AT ;;
+    sql: ${TABLE}.LAST_ALTERED ;;
   }
 
   dimension: null_if {

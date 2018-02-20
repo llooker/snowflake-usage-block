@@ -1,5 +1,5 @@
 view: columns {
-  sql_table_name: ACCOUNT_USAGE_DEV.COLUMNS ;;
+  sql_table_name: ACCOUNT_USAGE.COLUMNS ;;
 
   dimension: id {
     primary_key: yes
@@ -72,6 +72,21 @@ view: columns {
     sql: ${TABLE}.DATETIME_PRECISION ;;
   }
 
+  dimension_group: deleted {
+    type: time
+    timeframes: [
+      raw,
+      time,
+      date,
+      week,
+      month,
+      quarter,
+      year
+    ]
+    sql: ${TABLE}.DELETED ;;
+  }
+
+
   dimension: domain_catalog {
     type: string
     sql: ${TABLE}.DOMAIN_CATALOG ;;
@@ -124,17 +139,17 @@ view: columns {
 
   dimension: is_identity {
     type: yesno
-    sql: ${TABLE}.IS_IDENTITY ;;
+    sql: CASE WHEN ${TABLE}.IS_IDENTITY = 'YES' THEN TRUE ELSE FALSE END ;;
   }
 
   dimension: is_nullable {
     type: yesno
-    sql: ${TABLE}.IS_NULLABLE ;;
+    sql: CASE WHEN ${TABLE}.IS_NULLABLE = 'YES' THEN TRUE ELSE FALSE END ;;
   }
 
   dimension: is_self_referencing {
-    type: string
-    sql: ${TABLE}.IS_SELF_REFERENCING ;;
+    type: yesno
+    sql: CASE WHEN ${TABLE}.IS_SELF_REFERENCING = 'YES' THEN TRUE ELSE FALSE END ;;
   }
 
   dimension: maximum_cardinality {
@@ -182,6 +197,34 @@ view: columns {
     sql: ${TABLE}.TABLE_CATALOG ;;
   }
 
+  dimension_group: table_catalog_deleted {
+    type: time
+    timeframes: [
+      raw,
+      time,
+      date,
+      week,
+      month,
+      quarter,
+      year
+    ]
+    sql: ${TABLE}.TABLE_CATALOG_DELETED ;;
+  }
+
+  dimension_group: table_deleted {
+    type: time
+    timeframes: [
+      raw,
+      time,
+      date,
+      week,
+      month,
+      quarter,
+      year
+    ]
+    sql: ${TABLE}.TABLE_DELETED ;;
+  }
+
   dimension: table_name {
     type: string
     sql: ${TABLE}.TABLE_NAME ;;
@@ -190,6 +233,20 @@ view: columns {
   dimension: table_schema {
     type: string
     sql: ${TABLE}.TABLE_SCHEMA ;;
+  }
+
+  dimension_group: table_schema_deleted {
+    type: time
+    timeframes: [
+      raw,
+      time,
+      date,
+      week,
+      month,
+      quarter,
+      year
+    ]
+    sql: ${TABLE}.TABLE_SCHEMA_DELETED ;;
   }
 
   dimension: udt_catalog {

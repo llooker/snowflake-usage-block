@@ -1,5 +1,5 @@
 view: table_constraints {
-  sql_table_name: ACCOUNT_USAGE_DEV.TABLE_CONSTRAINTS ;;
+  sql_table_name: ACCOUNT_USAGE.TABLE_CONSTRAINTS ;;
 
   dimension: comment {
     type: string
@@ -51,7 +51,7 @@ view: table_constraints {
       quarter,
       year
     ]
-    sql: ${TABLE}.DELETED_AT ;;
+    sql: ${TABLE}.DELETED ;;
   }
 
   dimension: enforced {
@@ -61,12 +61,12 @@ view: table_constraints {
 
   dimension: initially_deferred {
     type: yesno
-    sql: ${TABLE}.INITIALLY_DEFERRED ;;
+    sql: CASE WHEN ${TABLE}.INITIALLY_DEFERRED = 'YES' THEN TRUE ELSE FALSE END ;;
   }
 
   dimension: is_deferrable {
     type: yesno
-    sql: ${TABLE}.IS_DEFERRABLE ;;
+    sql: CASE WHEN ${TABLE}.IS_DEFERRABLE = 'YES' THEN TRUE ELSE FALSE END ;;
   }
 
   dimension_group: last_altered {

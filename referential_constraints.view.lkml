@@ -1,5 +1,5 @@
 view: referential_constraints {
-  sql_table_name: ACCOUNT_USAGE_DEV.REFERENTIAL_CONSTRAINTS ;;
+  sql_table_name: ACCOUNT_USAGE.REFERENTIAL_CONSTRAINTS ;;
 
   dimension: comment {
     type: string
@@ -37,7 +37,7 @@ view: referential_constraints {
       quarter,
       year
     ]
-    sql: ${TABLE}.CREATED_AT ;;
+    sql: ${TABLE}.CREATED ;;
   }
 
   dimension: delete_rule {
@@ -56,7 +56,7 @@ view: referential_constraints {
       quarter,
       year
     ]
-    sql: ${TABLE}.DELETED_AT ;;
+    sql: ${TABLE}.DELETED ;;
   }
 
   dimension_group: last_altered {

@@ -1,5 +1,5 @@
 view: databases {
-  sql_table_name: ACCOUNT_USAGE_DEV.DATABASES ;;
+  sql_table_name: ACCOUNT_USAGE.DATABASES ;;
 
   dimension: id {
     primary_key: yes
@@ -23,7 +23,12 @@ view: databases {
       quarter,
       year
     ]
-    sql: ${TABLE}.CREATED_AT ;;
+    sql: ${TABLE}.CREATED ;;
+  }
+
+  dimension: database_name {
+    type: string
+    sql: ${TABLE}.DATABASE_NAME ;;
   }
 
   dimension: database_owner {
@@ -42,7 +47,7 @@ view: databases {
       quarter,
       year
     ]
-    sql: ${TABLE}.DELETED_AT ;;
+    sql: ${TABLE}.DELETED ;;
   }
 
   dimension: is_transient {
@@ -61,16 +66,11 @@ view: databases {
       quarter,
       year
     ]
-    sql: ${TABLE}.LAST_ALTERED_AT ;;
-  }
-
-  dimension: name {
-    type: string
-    sql: ${TABLE}.NAME ;;
+    sql: ${TABLE}.LAST_ALTERED ;;
   }
 
   measure: count {
     type: count
-    drill_fields: [id, name, query_history.count, schemata.count]
+    drill_fields: [id, database_name, query_history.count, schemata.count]
   }
 }

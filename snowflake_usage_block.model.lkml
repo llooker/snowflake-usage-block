@@ -1,4 +1,4 @@
-connection: "account_usage_dev"
+connection: "account_usage"
 
 # include all the views
 include: "*.view"
@@ -25,15 +25,15 @@ explore: login_history {
 explore: query_history {
   join: databases {
     type: left_outer
-    sql_on: ${query_history.database_id} = ${databases.id} ;;
+    sql_on: ${query_history.database_name} = ${databases.database_name} ;;
     relationship: many_to_one
   }
 
-  join: schemata {
-    type: left_outer
-    sql_on: ${databases.id} = ${schemata.id} ;;
-    relationship: one_to_many
-  }
+#   join: schemata {
+#     type: left_outer
+#     sql_on: ${databases.id} = ${schemata.id} ;;
+#     relationship: one_to_many
+#   }
 }
 
 # explore: schemata {

@@ -1,7 +1,7 @@
 view: storage_usage {
-  sql_table_name: ACCOUNT_USAGE_DEV.STORAGE_USAGE ;;
+  sql_table_name: ACCOUNT_USAGE.STORAGE_USAGE ;;
 
-  dimension_group: read {
+  dimension_group: usage {
     type: time
     timeframes: [
       raw,
@@ -17,7 +17,7 @@ view: storage_usage {
     ]
     convert_tz: no
     datatype: date
-    sql: ${TABLE}.READ_DATE ;;
+    sql: ${TABLE}.USAGE_DATE ;;
   }
 
   dimension: stage_bytes {
@@ -63,14 +63,14 @@ view: storage_usage {
   measure: curr_mtd_billable_tb {
     type: average
     sql:  ${stage_tb} + ${storage_tb} + ${failsafe_tb};;
-    filters: {field: read_date value: "this month"}
+    filters: {field: usage_date value: "this month"}
     value_format_name: decimal_4
   }
 
   measure: prior_mtd_billable_tb {
     type: average
     sql:  ${stage_tb} + ${storage_tb} + ${failsafe_tb};;
-    filters: {field: read_date value: "last month"}
+    filters: {field: usage_date value: "last month"}
     value_format_name: decimal_4
   }
 

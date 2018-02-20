@@ -1,5 +1,5 @@
 view: stages {
-  sql_table_name: ACCOUNT_USAGE_DEV.STAGES ;;
+  sql_table_name: ACCOUNT_USAGE.STAGES ;;
 
   dimension: comment {
     type: string
@@ -17,7 +17,7 @@ view: stages {
       quarter,
       year
     ]
-    sql: ${TABLE}.CREATED_AT ;;
+    sql: ${TABLE}.CREATED ;;
   }
 
   dimension_group: deleted {
@@ -31,7 +31,7 @@ view: stages {
       quarter,
       year
     ]
-    sql: ${TABLE}.DELETED_AT ;;
+    sql: ${TABLE}.DELETED ;;
   }
 
   dimension_group: last_altered {
@@ -45,7 +45,7 @@ view: stages {
       quarter,
       year
     ]
-    sql: ${TABLE}.LAST_ALTERED_AT ;;
+    sql: ${TABLE}.LAST_ALTERED ;;
   }
 
   dimension: stage_catalog {
