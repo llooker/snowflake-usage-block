@@ -1,10 +1,10 @@
 ## What does this Block do for me?
 
-(1) Leverage Prebuilt Insights - Provides insight into Snowflake database usage, long running queries, and other historical metrics.
+**(1) Leverage Prebuilt Insights** - Provides insight into Snowflake database usage, long running queries, and other historical metrics.
 
-(2) Combine Data from Multiple Sources - Combine Snowflake usage data with other metrics in your organization, (e.g. Redshift performance data) to get a complete view of your information.
+**(2) Combine Data from Multiple Sources** - Combine Snowflake usage data with other metrics in your organization, (e.g. Redshift performance data) to get a complete view of your information.
 
-(3) Enterprise Data Platform - Take advantage of Looker's data platform functionality, including data actions, scheduling, permissions, alerting, parameterization (each user can only see their own data), and more. Get immediate alerts when usage is exceeded, queries exceed a runtime threshold, or any other business criteria.
+**(3) Enterprise Data Platform** - Take advantage of Looker's data platform functionality, including data actions, scheduling, permissions, alerting, parameterization (each user can only see their own data), and more. Get immediate alerts when usage is exceeded, queries exceed a runtime threshold, or any other business criteria.
 
 ## Block Info
 This Block is built on the ACCOUNT_USAGE share provided by Snowflake. It covers many of the core metrics exposed and should serve as a great jump start for further exploration. Happy modeling!
@@ -17,30 +17,30 @@ The INFORMATION_SCHEMA views and table functions display data in real-time, wher
 #### Runtime:	
 Approximately 1 minute for the following views:
 
--QUERY_HISTORY
--LOGIN_HISTORY
+- QUERY_HISTORY
+- LOGIN_HISTORY
 
 #### Analytic:	
 1 hour (or less) for the following views:
 
 -WAREHOUSE_METERING_HISTORY
--STORAGE_USAGE
+- STORAGE_USAGE
 
 #### Dictionary:	
 1 hour (or less) for the following views:
 
--COLUMNS
--DATABASES
--FILE_FORMATS
--FUNCTIONS
--REFERENTIAL_CONSTRAINTS
--SCHEMATA
--SEQUENCES
--STAGES
--TABLE_CONSTRAINTS
--TABLE_STORAGE_METRICS
--TABLES
--VIEWS
+- COLUMNS
+- DATABASES
+- FILE_FORMATS
+- FUNCTIONS
+- REFERENTIAL_CONSTRAINTS
+- SCHEMATA
+- SEQUENCES
+- STAGES
+- TABLE_CONSTRAINTS
+- TABLE_STORAGE_METRICS
+- TABLES
+- VIEWS
 
 ## Block Structure
 ### Views
