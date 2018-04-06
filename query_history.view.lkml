@@ -174,7 +174,7 @@ view: query_history {
   measure: current_mtd_query_count {
     type: count
     filters: {field: start_date value: "this month"}
-    alias: [current_mtd_job_count]
+    alias: [current_mtd_job_count, current_month_job_count]
   }
 
   measure: prior_month_total_query_count {
@@ -188,7 +188,7 @@ view: query_history {
     type: count
     filters: {field: is_prior_month_mtd value: "yes"}
     value_format_name:  decimal_0
-    alias: [prior_mtd_job_count]
+    alias: [prior_mtd_job_count, prior_month_job_count]
   }
 
   measure: average_execution_time {
