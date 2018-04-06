@@ -18,6 +18,7 @@ view: storage_usage {
     convert_tz: no
     datatype: date
     sql: ${TABLE}.USAGE_DATE ;;
+    alias: [read]
   }
 
   dimension: stage_bytes {

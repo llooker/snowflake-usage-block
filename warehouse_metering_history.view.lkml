@@ -24,6 +24,7 @@ view: warehouse_metering_history {
       year
     ]
     sql: ${TABLE}.START_TIME ;;
+    alias: [read_hour]
   }
 
   dimension_group: end {
