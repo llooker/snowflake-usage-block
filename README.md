@@ -1,8 +1,10 @@
 ## What does this Block do for me?
 
-**(1) Leverage Prebuilt Insights** - Provides insight into Snowflake database usage, long running queries, and other historical metrics.
+**(1) Reduce Costs, Optimize Performance** - Take a holistic view across your datawarehouse and optimize across the board. Surface your longest running queries, most costly queries, troublesome users, and more, to identify the most impactful cost-saving and performance-enhancing opportunities.  
 
-**(2) Combine Data from Multiple Sources** - Combine Snowflake usage data with other metrics in your organization, (e.g. Redshift performance data) to get a complete view of your information.
+**(1) Monitor Cost and Usage Data** - Provide comprehensive insights around your Snowflake deployment and usage across all your tables, databases and users. See how these metrics trend over time and compare to prior periods to ensure you're scaling effectively.
+
+**(3) Combine Data from Multiple Sources** - Combine Snowflake usage data with other metrics in your organization, (e.g. Redshift performance data) to get a complete view of your information.
 
 **(3) Enterprise Data Platform** - Take advantage of Looker's data platform functionality, including data actions, scheduling, permissions, alerting, parameterization (each user can only see their own data), and more. Get immediate alerts when usage is exceeded, queries exceed a runtime threshold, or any other business criteria.
 
