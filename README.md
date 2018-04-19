@@ -29,10 +29,11 @@ This Block covers all of the core metrics that come with the dataset, as well as
 * 1 hour (or less) for the following views: ``WAREHOUSE_METERING_HISTORY``, ``STORAGE_USAGE``
 
 #### Dictionary:	
-* 1 hour (or less) for the following Columns: ``DATABASES``, ``FILE_FORMATS````FUNCTIONS````REFERENTIAL_CONSTRAINTS````SCHEMATA````SEQUENCES````STAGES````TABLE_CONSTRAINTS````TABLE_STORAGE_METRICS```TABLES````VIEWS``
+* 1 hour (or less) for the following Columns: ``DATABASES``, ``FILE_FORMATS``, ``FUNCTIONS``, ``REFERENTIAL_CONSTRAINTS``, ``SCHEMATA``, ``SEQUENCES``, ``STAGES``, ``TABLE_CONSTRAINTS``, ``TABLE_STORAGE_METRICS``,``TABLES``, and ``VIEWS``
 
 ## Implementation Instructions
-### Importing the ACCOUNT USAGE Share
+
+#### Importing the ACCOUNT USAGE Share
 To import the ACCOUNT_USAGE share, an account administrator must create a local, read-only database from the share. For example:
 
 ```
@@ -51,10 +52,10 @@ use schema snowflake_account_usage.account_usage;
 show views;
 ```
 
-## Connection Setup
+#### Connection Setup
 Create a connection to the database created from the ACCOUNT_USAGE share. The database name and schema name entries should correspond to the ones chosen in the previous step.
 
-## Dashboards
+#### Dashboards
 The dashboard can be used as is, or customized to your specific requirements. If you've customized the model name, rename the model in each LookML Dashboard element from "snowflake_usage_block" to the model name you've selected. We recommend using a global Find & Replace for this.
 
 ## What if I find an error? Suggestions for improvements?
