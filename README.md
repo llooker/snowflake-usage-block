@@ -1,19 +1,23 @@
 ## What does this Block do for me?
 
-**(1) Reduce Costs, Optimize Performance** - Take a holistic view across your datawarehouse and optimize across the board. Surface your longest running queries, most costly queries, troublesome users, and more, to identify the most impactful cost-saving and performance-enhancing opportunities.  
+**(1) Reduce Costs and Optimize Performance** - Take a holistic view across your datawarehouse and optimize across the board. Surface your longest running queries, most costly queries, troublesome users, and more, to identify the most impactful cost-saving and performance-enhancing opportunities.  
 
-**(1) Monitor Cost and Usage Data** - Provide comprehensive insights around your Snowflake deployment and usage across all your tables, databases and users. See how these metrics trend over time and compare to prior periods to ensure you're scaling effectively.
+**(2) Monitor Cost and Usage Data** - Provide comprehensive insights around your Snowflake deployment and usage across all your tables, databases and users. See how these metrics trend over time and compare to prior periods to ensure you're scaling effectively.
 
-**(3) Combine Data from Multiple Sources** - Combine Snowflake usage data with other metrics in your organization, (e.g. Redshift performance data) to get a complete view of your information.
+**(3) Compare Performance Across Databases** - If you're using another database, in addition to Snowflake, and want to understand the cost and performance implications for your workloads across your cloud environments, compare the Snowflake results from this Block with the results from other databases, such as Redshift ([Block here](https://looker.com/platform/blocks/source/redshift-optimization-by-aws)) or BigQuery([Block here](https://looker.com/platform/blocks/source/google-cloud-billing-by-datatonic)). 
 
-**(3) Enterprise Data Platform** - Take advantage of Looker's data platform functionality, including data actions, scheduling, permissions, alerting, parameterization (each user can only see their own data), and more. Get immediate alerts when usage is exceeded, queries exceed a runtime threshold, or any other business criteria.
+**(4) Enterprise Data Platform** - Take advantage of Looker's data platform functionality, including data actions, scheduling, permissions, alerting, parameterization (each user can only see their own data), and more. Get immediate alerts when usage is exceeded, queries exceed a runtime threshold, or any other business criteria.
 
-## Block Info
-This Block is built on the ACCOUNT_USAGE share provided by Snowflake. It covers many of the core metrics exposed and should serve as a great jump start for further exploration. Happy modeling!
+## Snowflake Account Usage Data Structure
+* Snowflake's Account Usage dataset comes complete with several tables (called "views"), such as databases, functions, query history, and much more. Colectively these tables give a comprehensive overview of Snowflake operations, execution steps, and processing time.
 
-The schema documentation for Account Usage can be found in [Snowflake's documentation](https://docs.snowflake.net/manuals/LIMITEDACCESS/data-sharing-account-usage.html). Please note that your naming might vary slightly.
+## Block Structure
+* This Block is built on the ACCOUNT_USAGE share provided by Snowflake (using their [Sharehouse](https://www.snowflake.net/data-sharehouse/) offering). 
+* Each Snowflake table is represented as it's own view in Looker. The Model file of this Block joins together the underlying views based on available keys. It provides a starting place for additional custom modeling.
+This Block covers all of the core metrics that come with the dataset, as well as additional value-add analysis, and should serve as a great jump start for further exploration. 
+* The schema documentation for Account Usage can be found in [Snowflake's documentation](https://docs.snowflake.net/manuals/LIMITEDACCESS/data-sharing-account-usage.html). Please note that your naming might vary slightly.
 
-## Data Latency
+## Additional Info - Data Latency
 The INFORMATION_SCHEMA views and table functions display data in real-time, whereas the ACCOUNT_USAGE views have some built-in latency, due to the process of extracting the usage data from Snowflake’s internal metadata store. However, the ACCOUNT_USAGE views have been designed to minimize the latency impact, based on the type of data displayed in the views:
 
 #### Runtime:	
@@ -43,13 +47,6 @@ Approximately 1 minute for the following views:
 - TABLE_STORAGE_METRICS
 - TABLES
 - VIEWS
-
-## Block Structure
-### Views
-The block contains Looker Views for each of the secure views exposed by the Account Usage share, as well as a view that aggregates user login data into a DT for querying.
-
-### Model File and Joins
-Model file joins together the underlying views based on available keys. It provides a starting place for additional custom modeling.
 
 ## Implementation Instructions
 ### Importing the ACCOUNT USAGE Share
