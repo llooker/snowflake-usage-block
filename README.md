@@ -1,6 +1,6 @@
 ## What does this Block do for me?
 
-**(1) Reduce Costs and Optimize Performance** - Take a holistic view across your datawarehouse and optimize across the board. Surface your longest running queries, most costly queries, troublesome users, and more, to identify the most impactful cost-saving and performance-enhancing opportunities.  
+**(1) Reduce Costs and Optimize Performance** - Gain a holistic view across your datawarehouse and optimize across the board. Identify your longest running queries, most costly queries, troublesome users, and more, to uncover the most impactful cost-saving and performance-enhancing opportunities.  
 
 **(2) Monitor Cost and Usage Data** - Provide comprehensive insights around your Snowflake deployment and usage across all your tables, databases and users. See how these metrics trend over time and compare to prior periods to ensure you're scaling effectively.
 
