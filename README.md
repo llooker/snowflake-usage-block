@@ -17,36 +17,19 @@
 This Block covers all of the core metrics that come with the dataset, as well as additional value-add analysis, and should serve as a great jump start for further exploration. 
 * The schema documentation for Account Usage can be found in [Snowflake's documentation](https://docs.snowflake.net/manuals/LIMITEDACCESS/data-sharing-account-usage.html). Please note that your naming might vary slightly.
 
-## Additional Info - Data Latency
-The INFORMATION_SCHEMA views and table functions display data in real-time, whereas the ACCOUNT_USAGE views have some built-in latency, due to the process of extracting the usage data from Snowflake’s internal metadata store. However, the ACCOUNT_USAGE views have been designed to minimize the latency impact, based on the type of data displayed in the views:
+## Additional Info
+
+#### Data Latency
+* The INFORMATION_SCHEMA views and table functions display data in real-time, whereas the ACCOUNT_USAGE views have some built-in latency, due to the process of extracting the usage data from Snowflake’s internal metadata store. However, the ACCOUNT_USAGE views have been designed to minimize the latency impact, based on the type of data displayed in the views:
 
 #### Runtime:	
-Approximately 1 minute for the following views:
-
-- QUERY_HISTORY
-- LOGIN_HISTORY
+* Approximately 1 minute for the following views: ``QUERY_HISTORY``, ``LOGIN_HISTORY``
 
 #### Analytic:	
-1 hour (or less) for the following views:
-
--WAREHOUSE_METERING_HISTORY
-- STORAGE_USAGE
+* 1 hour (or less) for the following views: ``WAREHOUSE_METERING_HISTORY``, ``STORAGE_USAGE``
 
 #### Dictionary:	
-1 hour (or less) for the following views:
-
-- COLUMNS
-- DATABASES
-- FILE_FORMATS
-- FUNCTIONS
-- REFERENTIAL_CONSTRAINTS
-- SCHEMATA
-- SEQUENCES
-- STAGES
-- TABLE_CONSTRAINTS
-- TABLE_STORAGE_METRICS
-- TABLES
-- VIEWS
+* 1 hour (or less) for the following Columns: ``DATABASES``, ``FILE_FORMATS````FUNCTIONS````REFERENTIAL_CONSTRAINTS````SCHEMATA````SEQUENCES````STAGES````TABLE_CONSTRAINTS````TABLE_STORAGE_METRICS```TABLES````VIEWS``
 
 ## Implementation Instructions
 ### Importing the ACCOUNT USAGE Share
