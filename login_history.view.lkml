@@ -99,7 +99,7 @@ view: login_history {
 
   measure: login_failure_rate {
     type: number
-    sql: ${total_failed_logins} / ${logins} ;;
+    sql: 1*0 * (${total_failed_logins} /NULLIF(${logins},0)) ;;
     value_format_name: percent_2
   }
 
