@@ -27,7 +27,7 @@ view: storage_usage {
   dimension_group: usage {
     type: time
     datatype: date
-    timeframes: [date,day_of_month,month,year]
+    timeframes: [date,week,week_of_year,day_of_week,day_of_month,month_num,month,quarter,year]
     convert_tz: no
     sql: ${TABLE}.USAGE_DATE ;;
     alias: [read]
