@@ -1,5 +1,5 @@
 view: views {
-  sql_table_name: ACCOUNT_USAGE.VIEWS ;;
+  sql_table_name: SNOWFLAKE.ACCOUNT_USAGE.VIEWS ;;
 
   dimension: check_option {
     type: string

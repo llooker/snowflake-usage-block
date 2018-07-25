@@ -1,11 +1,10 @@
 view: user_login_facts {
-  # Or, you could make this view a derived table, like this:
   derived_table: {
     sql: select user_name
       , count(*) as failed_logins
       , timediff(seconds, event_timestamp, lead(event_timestamp) over(partition by user_name order by event_timestamp)) as seconds_between_login_attempts
       , event_at
-      from account_usage.login_history
+      from SNOWFLAKE.account_usage.login_history
       where not (CASE WHEN is_success = 'YES' THEN TRUE ELSE FALSE END)
       group by user_name, event_timestamp;;
       #persist_for: "1 hour"

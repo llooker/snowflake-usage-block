@@ -1,5 +1,5 @@
 view: functions {
-  sql_table_name: ACCOUNT_USAGE.FUNCTIONS ;;
+  sql_table_name: SNOWFLAKE.ACCOUNT_USAGE.FUNCTIONS ;;
 
   dimension: argument_signature {
     type: string

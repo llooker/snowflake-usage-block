@@ -1,5 +1,5 @@
 view: sequences {
-  sql_table_name: ACCOUNT_USAGE.SEQUENCES ;;
+  sql_table_name: SNOWFLAKE.ACCOUNT_USAGE.SEQUENCES ;;
 
   dimension: comment {
     type: string

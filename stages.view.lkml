@@ -1,5 +1,5 @@
 view: stages {
-  sql_table_name: ACCOUNT_USAGE.STAGES ;;
+  sql_table_name: SNOWFLAKE.ACCOUNT_USAGE.STAGES ;;
 
   dimension: comment {
     type: string

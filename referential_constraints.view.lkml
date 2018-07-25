@@ -1,5 +1,5 @@
 view: referential_constraints {
-  sql_table_name: ACCOUNT_USAGE.REFERENTIAL_CONSTRAINTS ;;
+  sql_table_name: SNOWFLAKE.ACCOUNT_USAGE.REFERENTIAL_CONSTRAINTS ;;
 
   dimension: comment {
     type: string
