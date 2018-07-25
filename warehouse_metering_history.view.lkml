@@ -1,5 +1,5 @@
 view: warehouse_metering_history {
-  sql_table_name: ACCOUNT_USAGE.WAREHOUSE_METERING_HISTORY ;;
+  sql_table_name: SNOWFLAKE.ACCOUNT_USAGE.WAREHOUSE_METERING_HISTORY ;;
 
   dimension: credits_used {
     type: number

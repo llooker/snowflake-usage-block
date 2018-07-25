@@ -1,5 +1,5 @@
 view: file_formats {
-  sql_table_name: ACCOUNT_USAGE.FILE_FORMATS ;;
+  sql_table_name: SNOWFLAKE.ACCOUNT_USAGE.FILE_FORMATS ;;
 
   dimension: binary_format {
     type: string

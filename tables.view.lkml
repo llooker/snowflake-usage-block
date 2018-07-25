@@ -1,11 +1,11 @@
 view: tables {
-  sql_table_name: ACCOUNT_USAGE.TABLES ;;
+  sql_table_name: SNOWFLAKE.ACCOUNT_USAGE.TABLES ;;
 
-#   dimension: id {
-#     primary_key: yes
-#     type: number
-#     sql: ${TABLE}.ID ;;
-#   }
+  dimension: id {
+    primary_key: yes
+    type: number
+    sql: ${TABLE}.table_id ;;
+  }
 
   dimension: bytes {
     type: string

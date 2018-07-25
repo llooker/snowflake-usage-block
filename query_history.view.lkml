@@ -1,17 +1,26 @@
 view: query_history {
-  sql_table_name: ACCOUNT_USAGE.QUERY_HISTORY ;;
-
-#   dimension: id {
-#     primary_key: yes
-#     type: string
-#     sql: ${TABLE}.ID ;;
-#   }
+  sql_table_name: SNOWFLAKE.ACCOUNT_USAGE.QUERY_HISTORY ;;
 
   dimension: compilation_time {
     type: string
     sql: ${TABLE}.COMPILATION_TIME ;;
   }
 
+  dimension: looker_query_context {
+    type: string
+    hidden: yes
+    sql: PARSE_JSON(regexp_substr(regexp_substr(query_text, 'Query\\sContext\\s\'\{.*\}\''),'\{.*\}')) ;;
+  }
+
+  dimension: looker_history_id {
+    type: number
+    sql: ${looker_query_context}:history_id ;;
+  }
+
+  dimension: looker_user_id {
+    type: number
+    sql: ${looker_query_context}:user_id ;;
+  }
 #   dimension: database_id {
 #     type: number
 #     # hidden: yes
@@ -64,6 +73,7 @@ view: query_history {
 
   dimension: query_id {
     type: string
+    primary_key: yes
     sql: ${TABLE}.QUERY_ID ;;
   }
 

@@ -1,5 +1,5 @@
 view: table_storage_metrics {
-  sql_table_name: ACCOUNT_USAGE.TABLE_STORAGE_METRICS ;;
+  sql_table_name: SNOWFLAKE.ACCOUNT_USAGE.TABLE_STORAGE_METRICS ;;
 
 #   dimension: id {
 #     primary_key: yes

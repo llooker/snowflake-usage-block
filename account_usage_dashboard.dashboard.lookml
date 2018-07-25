@@ -1,4 +1,4 @@
-- dashboard: account_usage_dashboard
+- dashboard: snowflake_usage
   title: Snowflake Usage
   layout: newspaper
   elements:
@@ -45,6 +45,7 @@
     show_silhouette: false
     totals_color: "#808080"
     reference_lines: []
+    listen: {}
     row: 12
     col: 0
     width: 12
@@ -91,6 +92,7 @@
     show_silhouette: false
     totals_color: "#808080"
     series_types: {}
+    listen: {}
     row: 20
     col: 0
     width: 12
@@ -142,55 +144,11 @@
     interpolation: linear
     series_types: {}
     column_spacing_ratio:
+    listen: {}
     row: 12
     col: 12
     width: 12
     height: 8
-  - title: Total Jobs (MTD)
-    name: Total Jobs (MTD)
-    model: snowflake_usage_block
-    explore: query_history
-    type: single_value
-    fields:
-    - query_history.current_mtd_job_count
-    - query_history.prior_mtd_job_count
-    limit: 500
-    query_timezone: UTC
-    custom_color_enabled: false
-    custom_color: forestgreen
-    show_single_value_title: true
-    show_comparison: true
-    comparison_type: progress_percentage
-    comparison_reverse_colors: false
-    show_comparison_label: true
-    stacking: ''
-    show_value_labels: false
-    label_density: 25
-    legend_position: center
-    x_axis_gridlines: false
-    y_axis_gridlines: true
-    show_view_names: true
-    limit_displayed_rows: false
-    y_axis_combined: true
-    show_y_axis_labels: true
-    show_y_axis_ticks: true
-    y_axis_tick_density: default
-    y_axis_tick_density_custom: 5
-    show_x_axis_label: true
-    show_x_axis_ticks: true
-    x_axis_scale: auto
-    y_axis_scale_mode: linear
-    ordering: none
-    show_null_labels: false
-    show_totals_labels: false
-    show_silhouette: false
-    totals_color: "#808080"
-    series_types: {}
-    comparison_label: Prior Month
-    row: 0
-    col: 0
-    width: 6
-    height: 4
   - title: Total Jobs by Warehouse (MTD)
     name: Total Jobs by Warehouse (MTD)
     model: snowflake_usage_block
@@ -255,6 +213,11 @@
       - id: query_history.count
         name: Query History
         axisId: query_history.count
+        __FILE: snowflake_usage/account_usage_dashboard.dashboard.lookml
+        __LINE_NUM: 255
+      __FILE: snowflake_usage/account_usage_dashboard.dashboard.lookml
+      __LINE_NUM: 243
+    listen: {}
     row: 4
     col: 0
     width: 16
@@ -324,6 +287,11 @@
       - id: query_history.average_execution_time
         name: Average Execution Time
         axisId: query_history.average_execution_time
+        __FILE: snowflake_usage/account_usage_dashboard.dashboard.lookml
+        __LINE_NUM: 324
+      __FILE: snowflake_usage/account_usage_dashboard.dashboard.lookml
+      __LINE_NUM: 312
+    listen: {}
     row: 27
     col: 0
     width: 12
@@ -397,6 +365,11 @@
       - id: query_history.average_execution_time
         name: Average Execution Time
         axisId: query_history.average_execution_time
+        __FILE: snowflake_usage/account_usage_dashboard.dashboard.lookml
+        __LINE_NUM: 397
+      __FILE: snowflake_usage/account_usage_dashboard.dashboard.lookml
+      __LINE_NUM: 385
+    listen: {}
     row: 27
     col: 12
     width: 12
@@ -442,61 +415,11 @@
     point_style: circle
     interpolation: linear
     series_types: {}
+    listen: {}
     row: 4
     col: 16
     width: 8
     height: 8
-  - title: Credits Used Over Time by Warehouse (MTD)
-    name: Credits Used Over Time by Warehouse (MTD)
-    model: snowflake_usage_block
-    explore: warehouse_metering_history
-    type: looker_line
-    fields:
-    - warehouse_metering_history.warehouse_name
-    - warehouse_metering_history.total_credits_used
-    - warehouse_metering_history.start_date
-    pivots:
-    - warehouse_metering_history.warehouse_name
-    fill_fields:
-    - warehouse_metering_history.start_date
-    filters:
-      warehouse_metering_history.start_date: 1 months
-    sorts:
-    - warehouse_metering_history.total_credits_used desc 0
-    - warehouse_metering_history.warehouse_name
-    limit: 500
-    total: true
-    query_timezone: UTC
-    stacking: ''
-    show_value_labels: false
-    label_density: 25
-    legend_position: center
-    x_axis_gridlines: false
-    y_axis_gridlines: true
-    show_view_names: false
-    limit_displayed_rows: false
-    y_axis_combined: true
-    show_y_axis_labels: true
-    show_y_axis_ticks: true
-    y_axis_tick_density: default
-    y_axis_tick_density_custom: 5
-    show_x_axis_label: true
-    show_x_axis_ticks: true
-    x_axis_scale: auto
-    y_axis_scale_mode: linear
-    show_null_points: true
-    point_style: circle
-    interpolation: linear
-    ordering: none
-    show_null_labels: false
-    show_totals_labels: false
-    show_silhouette: false
-    totals_color: "#808080"
-    series_types: {}
-    row: 20
-    col: 12
-    width: 12
-    height: 7
   - title: Billable TB Over Time
     name: Billable TB Over Time
     model: snowflake_usage_block
@@ -537,6 +460,7 @@
     ordering: none
     show_null_labels: false
     series_types: {}
+    listen: {}
     row: 35
     col: 0
     width: 12
@@ -588,7 +512,8 @@
     show_silhouette: false
     totals_color: "#808080"
     series_types: {}
-    row: 35
+    listen: {}
+    row: 42
     col: 12
     width: 12
     height: 7
@@ -650,56 +575,11 @@
       login_history.login_failure_rate: Failure Rate
       login_history.reported_client_type: Client Type
       login_history.user_name: User Name
-    row: 42
+    listen: {}
+    row: 49
     col: 0
     width: 24
     height: 9
-  - title: Untitled
-    name: Untitled
-    model: snowflake_usage_block
-    explore: warehouse_metering_history
-    type: single_value
-    fields:
-    - warehouse_metering_history.current_mtd_credits_used
-    - warehouse_metering_history.prior_mtd_credits_used
-    limit: 500
-    query_timezone: UTC
-    custom_color_enabled: false
-    custom_color: forestgreen
-    show_single_value_title: true
-    show_comparison: true
-    comparison_type: progress_percentage
-    comparison_reverse_colors: false
-    show_comparison_label: true
-    stacking: ''
-    show_value_labels: false
-    label_density: 25
-    legend_position: center
-    x_axis_gridlines: false
-    y_axis_gridlines: true
-    show_view_names: true
-    limit_displayed_rows: false
-    y_axis_combined: true
-    show_y_axis_labels: true
-    show_y_axis_ticks: true
-    y_axis_tick_density: default
-    y_axis_tick_density_custom: 5
-    show_x_axis_label: true
-    show_x_axis_ticks: true
-    x_axis_scale: auto
-    y_axis_scale_mode: linear
-    ordering: none
-    show_null_labels: false
-    show_totals_labels: false
-    show_silhouette: false
-    totals_color: "#808080"
-    series_types: {}
-    comparison_label: Credits Used (Prior MTD)
-    single_value_title: Credits Used (MTD)
-    row: 0
-    col: 6
-    width: 6
-    height: 4
   - title: Untitled2
     name: Untitled2
     model: snowflake_usage_block
@@ -743,6 +623,7 @@
     comparison_label: Avg Exec Time (Prior MTD)
     single_value_title: Avg Execution Time in Secs (MTD)
     value_format: ''
+    listen: {}
     row: 0
     col: 12
     width: 6
@@ -789,7 +670,336 @@
     series_types: {}
     comparison_label: Billable TB (Prior MTD)
     single_value_title: Billable TB (MTD)
+    listen: {}
     row: 0
     col: 18
     width: 6
     height: 4
+  - title: Total Jobs (MTD)
+    name: Total Jobs (MTD)
+    model: snowflake_usage_block
+    explore: query_history
+    type: single_value
+    fields:
+    - query_history.current_mtd_query_count
+    - query_history.prior_mtd_query_count
+    limit: 500
+    query_timezone: UTC
+    custom_color_enabled: false
+    custom_color: forestgreen
+    show_single_value_title: true
+    show_comparison: true
+    comparison_type: change
+    comparison_reverse_colors: false
+    show_comparison_label: true
+    stacking: ''
+    show_value_labels: false
+    label_density: 25
+    legend_position: center
+    x_axis_gridlines: false
+    y_axis_gridlines: true
+    show_view_names: true
+    limit_displayed_rows: false
+    y_axis_combined: true
+    show_y_axis_labels: true
+    show_y_axis_ticks: true
+    y_axis_tick_density: default
+    y_axis_tick_density_custom: 5
+    show_x_axis_label: true
+    show_x_axis_ticks: true
+    x_axis_scale: auto
+    y_axis_scale_mode: linear
+    ordering: none
+    show_null_labels: false
+    show_totals_labels: false
+    show_silhouette: false
+    totals_color: "#808080"
+    series_types: {}
+    comparison_label: Prior Month
+    value_format: ''
+    listen: {}
+    row: 0
+    col: 0
+    width: 6
+    height: 4
+  - title: Untitled
+    name: Untitled
+    model: snowflake_usage_block
+    explore: warehouse_metering_history
+    type: single_value
+    fields:
+    - warehouse_metering_history.current_mtd_credits_used
+    - warehouse_metering_history.prior_mtd_credits_used
+    limit: 500
+    query_timezone: UTC
+    custom_color_enabled: false
+    custom_color: forestgreen
+    show_single_value_title: true
+    show_comparison: true
+    comparison_type: change
+    comparison_reverse_colors: false
+    show_comparison_label: true
+    stacking: ''
+    show_value_labels: false
+    label_density: 25
+    legend_position: center
+    x_axis_gridlines: false
+    y_axis_gridlines: true
+    show_view_names: true
+    limit_displayed_rows: false
+    y_axis_combined: true
+    show_y_axis_labels: true
+    show_y_axis_ticks: true
+    y_axis_tick_density: default
+    y_axis_tick_density_custom: 5
+    show_x_axis_label: true
+    show_x_axis_ticks: true
+    x_axis_scale: auto
+    y_axis_scale_mode: linear
+    ordering: none
+    show_null_labels: false
+    show_totals_labels: false
+    show_silhouette: false
+    totals_color: "#808080"
+    series_types: {}
+    comparison_label: Credits Used (Prior MTD)
+    single_value_title: Credits Used (MTD)
+    listen: {}
+    row: 0
+    col: 6
+    width: 6
+    height: 4
+  - title: Credits Used Over Time by Warehouse (MTD)
+    name: Credits Used Over Time by Warehouse (MTD)
+    model: snowflake_usage_block
+    explore: warehouse_metering_history
+    type: looker_line
+    fields:
+    - warehouse_metering_history.warehouse_name
+    - warehouse_metering_history.total_credits_used
+    - warehouse_metering_history.start_date
+    pivots:
+    - warehouse_metering_history.warehouse_name
+    filters:
+      warehouse_metering_history.start_date: 1 months
+    sorts:
+    - warehouse_metering_history.total_credits_used desc 0
+    - warehouse_metering_history.warehouse_name
+    limit: 500
+    total: true
+    query_timezone: UTC
+    stacking: ''
+    show_value_labels: false
+    label_density: 25
+    legend_position: center
+    x_axis_gridlines: false
+    y_axis_gridlines: true
+    show_view_names: false
+    limit_displayed_rows: false
+    y_axis_combined: true
+    show_y_axis_labels: true
+    show_y_axis_ticks: true
+    y_axis_tick_density: default
+    y_axis_tick_density_custom: 5
+    show_x_axis_label: true
+    show_x_axis_ticks: true
+    x_axis_scale: auto
+    y_axis_scale_mode: linear
+    show_null_points: true
+    point_style: circle
+    interpolation: linear
+    ordering: none
+    show_null_labels: false
+    show_totals_labels: false
+    show_silhouette: false
+    totals_color: "#808080"
+    series_types: {}
+    listen: {}
+    row: 20
+    col: 12
+    width: 12
+    height: 7
+  - title: Database Storage Growth
+    name: Database Storage Growth
+    model: snowflake_usage_block
+    explore: storage_usage
+    type: looker_line
+    fields:
+    - storage_usage.billable_tb
+    - storage_usage.usage_month
+    - storage_usage.database_name
+    pivots:
+    - storage_usage.database_name
+    fill_fields:
+    - storage_usage.usage_month
+    filters:
+      storage_usage.usage_date: 12 months ago for 12 months
+    sorts:
+    - storage_usage.usage_month desc
+    - storage_usage.database_name
+    limit: 500
+    column_limit: 50
+    query_timezone: UTC
+    stacking: ''
+    show_value_labels: false
+    label_density: 25
+    legend_position: center
+    x_axis_gridlines: false
+    y_axis_gridlines: true
+    show_view_names: true
+    limit_displayed_rows: false
+    y_axis_combined: true
+    show_y_axis_labels: true
+    show_y_axis_ticks: true
+    y_axis_tick_density: default
+    y_axis_tick_density_custom: 5
+    show_x_axis_label: true
+    show_x_axis_ticks: true
+    x_axis_scale: auto
+    y_axis_scale_mode: linear
+    show_null_points: true
+    point_style: none
+    interpolation: linear
+    ordering: none
+    show_null_labels: false
+    show_totals_labels: false
+    show_silhouette: false
+    totals_color: "#808080"
+    series_types: {}
+    row: 35
+    col: 12
+    width: 12
+    height: 7
+  - title: Data Loading
+    name: Data Loading
+    model: snowflake_usage_block
+    explore: load_history
+    type: single_value
+    fields:
+    - load_history.total_row_count
+    - load_history.total_error_count
+    filters:
+      load_history.last_load_time_date: 7 days
+    limit: 500
+    query_timezone: America/Los_Angeles
+    custom_color_enabled: false
+    custom_color: forestgreen
+    show_single_value_title: true
+    show_comparison: true
+    comparison_type: value
+    comparison_reverse_colors: false
+    show_comparison_label: true
+    stacking: ''
+    show_value_labels: false
+    label_density: 25
+    legend_position: center
+    x_axis_gridlines: false
+    y_axis_gridlines: true
+    show_view_names: true
+    point_style: none
+    limit_displayed_rows: false
+    y_axis_combined: true
+    show_y_axis_labels: true
+    show_y_axis_ticks: true
+    y_axis_tick_density: default
+    y_axis_tick_density_custom: 5
+    show_x_axis_label: true
+    show_x_axis_ticks: true
+    x_axis_scale: auto
+    y_axis_scale_mode: linear
+    x_axis_reversed: false
+    y_axis_reversed: false
+    ordering: none
+    show_null_labels: false
+    show_totals_labels: false
+    show_silhouette: false
+    totals_color: "#808080"
+    show_null_points: true
+    interpolation: linear
+    series_types: {}
+    y_axes:
+    - label: Rows Loaded
+      orientation: left
+      series:
+      - id: load_history.total_row_count
+        name: Load History Total Row Count
+        axisId: load_history.total_row_count
+      showLabels: true
+      showValues: true
+      valueFormat: '[>=1000000]0.0,," M";[>=100000]0.0," K";0'
+      unpinAxis: false
+      tickDensity: default
+      tickDensityCustom: 5
+      type: linear
+    x_axis_label: Load Date
+    single_value_title: Rows Loaded Last 7 Days
+    comparison_label: Row Errors on Load Last 7 Days
+    listen: {}
+    row: 42
+    col: 0
+    width: 6
+    height: 7
+  - title: Total Rows Loaded - Last 2 Weeks
+    name: Total Rows Loaded - Last 2 Weeks
+    model: snowflake_usage_block
+    explore: load_history
+    type: looker_column
+    fields:
+    - load_history.total_row_count
+    - load_history.last_load_time_date
+    fill_fields:
+    - load_history.last_load_time_date
+    filters:
+      load_history.last_load_time_date: 14 days
+    sorts:
+    - load_history.last_load_time_date desc
+    limit: 500
+    query_timezone: America/Los_Angeles
+    stacking: ''
+    show_value_labels: false
+    label_density: 25
+    legend_position: center
+    x_axis_gridlines: false
+    y_axis_gridlines: true
+    show_view_names: true
+    point_style: none
+    limit_displayed_rows: false
+    y_axis_combined: true
+    show_y_axis_labels: true
+    show_y_axis_ticks: true
+    y_axis_tick_density: default
+    y_axis_tick_density_custom: 5
+    show_x_axis_label: true
+    show_x_axis_ticks: true
+    x_axis_scale: auto
+    y_axis_scale_mode: linear
+    x_axis_reversed: false
+    y_axis_reversed: false
+    ordering: none
+    show_null_labels: false
+    show_totals_labels: false
+    show_silhouette: false
+    totals_color: "#808080"
+    show_null_points: true
+    interpolation: linear
+    series_types: {}
+    y_axes:
+    - label: Rows Loaded
+      orientation: left
+      series:
+      - id: load_history.total_row_count
+        name: Load History Total Row Count
+        axisId: load_history.total_row_count
+      showLabels: true
+      showValues: true
+      valueFormat: '[>=1000000]0.0,," M";[>=100000]0.0," K";0'
+      unpinAxis: false
+      tickDensity: default
+      tickDensityCustom: 5
+      type: linear
+    x_axis_label: Load Date
+    listen: {}
+    row: 42
+    col: 6
+    width: 6
+    height: 7

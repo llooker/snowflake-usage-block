@@ -1,5 +1,5 @@
 view: table_constraints {
-  sql_table_name: ACCOUNT_USAGE.TABLE_CONSTRAINTS ;;
+  sql_table_name: SNOWFLAKE.ACCOUNT_USAGE.TABLE_CONSTRAINTS ;;
 
   dimension: comment {
     type: string

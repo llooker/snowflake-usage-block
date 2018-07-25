@@ -44,6 +44,14 @@ explore: query_history {
 #   }
 # }
 
+explore: load_history {
+  fields: [ALL_FIELDS*,-tables.table_name,-tables.id]
+  join: tables {
+    sql_on: ${load_history.table_id} = ${tables.id} ;;
+    relationship: many_to_one
+  }
+}
+
 explore: user_login_facts {}
 
 explore: storage_usage {}

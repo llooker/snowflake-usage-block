@@ -1,5 +1,5 @@
 view: schemata {
-  sql_table_name: ACCOUNT_USAGE.SCHEMATA ;;
+  sql_table_name: SNOWFLAKE.ACCOUNT_USAGE.SCHEMATA ;;
 
 #   dimension: id {
 #     primary_key: yes
