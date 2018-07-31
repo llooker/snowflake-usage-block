@@ -11,7 +11,7 @@
 **(5) Understand Data Loading Issues** - Analyze data loading successes and failures into any of your snowflake databases and track or alert on unexpected changes.
 
 ## Snowflake Account Usage Data Structure
-* Snowflake's Account Usage dataset comes complete with several tables (called "views"), such as databases, functions, query history, and much more. Colectively these tables give a comprehensive overview of Snowflake operations, execution steps, and processing time.
+* Snowflake's [Account Usage](https://docs.snowflake.net/manuals/sql-reference/account-usage.html) dataset comes complete with several tables (called "views"), such as databases, functions, query history, and much more. Colectively these tables give a comprehensive overview of Snowflake operations, execution steps, and processing time.
 
 ## Block Structure
 * This Block is built on the ACCOUNT_USAGE share provided by Snowflake (using their [Sharehouse](https://www.snowflake.net/data-sharehouse/) offering).
@@ -35,27 +35,17 @@ This Block covers all of the core metrics that come with the dataset, as well as
 
 ## Implementation Instructions
 
-#### Importing the ACCOUNT USAGE Share
-To import the ACCOUNT_USAGE share, an account administrator must create a local, read-only database from the share. For example:
+#### Accessing the ACCOUNT USAGE Share
+To access the ACCOUNT_USAGE share, an account administrator must grant the user provided in your [looker connection](https://discourse.looker.com/t/connecting-to-snowflake/203) with access to the appropriate schema.
+
+As an example, The commands below would be used if the user in your looker connection was granted the "looker_role" and that is how you plan on permissioning the SNOWFLAKE shared DB:
 
 ```
-use role accountadmin;
-
-show shares; -- this should return snowflake.account_usage
-
-create database snowflake_account_usage from share snowflake.account_usage;
-
-grant imported privileges on database snowflake_account_usage to role <preferred_role>;
-
-use role <preferred_role>;
-
-use schema snowflake_account_usage.account_usage;
-
-show views;
+grant usage on database SNOWFLAKE to role looker_role;
+grant usage on schema SNOWFLAKE.ACCOUNT_USAGE to role looker_role;
+grant select on all tables in schema SNOWFLAKE.ACCOUNT_USAGE to role looker_role;
 ```
 
-#### Connection Setup
-Create a connection to the database created from the ACCOUNT_USAGE share. The database name and schema name entries should correspond to the ones chosen in the previous step.
 
 #### Dashboards
 The dashboard can be used as is, or customized to your specific requirements. If you've customized the model name, rename the model in each LookML Dashboard element from "snowflake_usage_block" to the model name you've selected. We recommend using a global Find & Replace for this.

@@ -51,9 +51,9 @@ view: query_history {
     sql: ${TABLE}.ERROR_CODE ;;
   }
 
-  dimension: error_name {
+  dimension: error_message {
     type: string
-    sql: ${TABLE}.ERROR_NAME ;;
+    sql: ${TABLE}.ERROR_MESSAGE ;;
   }
 
   dimension: execution_status {
@@ -134,7 +134,7 @@ view: query_history {
     sql: ${TABLE}.START_TIME ;;
   }
 
-  dimension: total_elapsed_time {
+  dimension: elapsed_time {
     type: number
     sql: ${TABLE}.TOTAL_ELAPSED_TIME ;;
   }
@@ -148,11 +148,6 @@ view: query_history {
     type: string
     sql: ${TABLE}.USER_NAME ;;
   }
-
-#   dimension: warehouse_id {
-#     type: number
-#     sql: ${TABLE}.WAREHOUSE_ID ;;
-#   }
 
   dimension: warehouse_name {
     type: string
@@ -203,19 +198,63 @@ view: query_history {
 
   measure: average_execution_time {
     type: average
+    group_label: "Runtime Metrics"
     sql: ${execution_time} ;;
     value_format_name: decimal_2
   }
 
   measure: total_execution_time {
     type: sum
+    group_label: "Runtime Metrics"
     sql: ${execution_time} ;;
+    value_format_name: decimal_2
+  }
+
+  measure: total_queued_overload_time {
+    type: sum
+    group_label: "Runtime Metrics"
+    sql: ${queued_overload_time} ;;
+    value_format_name: decimal_2
+  }
+
+  measure: total_elapsed_time {
+    type: sum
+    group_label: "Runtime Metrics"
+    sql: ${elapsed_time} ;;
+    value_format_name: decimal_2
+  }
+
+  measure: total_queued_repair_time  {
+    type: sum
+    group_label: "Runtime Metrics"
+    sql: ${queued_repair_time} ;;
+    value_format_name: decimal_2
+  }
+
+  measure: total_compilation_time  {
+    type: sum
+    group_label: "Runtime Metrics"
+    sql: ${compilation_time} ;;
+    value_format_name: decimal_2
+  }
+
+  measure: total_queued_provisioning_time  {
+    type: sum
+    group_label: "Runtime Metrics"
+    sql: ${queued_provisioning_time} ;;
+    value_format_name: decimal_2
+  }
+  measure: total_transaction_blocked_time  {
+    type: sum
+    group_label: "Runtime Metrics"
+    sql: ${transaction_blocked_time} ;;
     value_format_name: decimal_2
   }
 
   measure: current_mtd_avg_exec_time {
     type: average
     sql: ${execution_time} ;;
+    group_label: "Runtime Metrics"
     filters: {field: start_date value: "this month"}
     value_format_name: decimal_2
   }
@@ -223,6 +262,7 @@ view: query_history {
   measure: prior_mtd_avg_exec_time {
     type:  average
     sql:  ${execution_time} ;;
+    group_label: "Runtime Metrics"
     filters: {field: is_prior_month_mtd value: "yes"}
     value_format_name: decimal_2
   }

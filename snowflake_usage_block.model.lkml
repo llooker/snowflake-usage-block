@@ -11,6 +11,10 @@ datagroup: snowflake_usage_block_default_datagroup {
   max_cache_age: "1 hour"
 }
 
+named_value_format: conditional_to_millions {
+  value_format: "[>=1000000]0,,\"M\";[>=1000]0,\"K\";0"
+}
+
 persist_with: snowflake_usage_block_default_datagroup
 
 explore: login_history {
