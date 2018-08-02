@@ -1,5 +1,5 @@
-- dashboard: snowflake_usage_recovered
-  title: Snowflake Usage (recovered)
+- dashboard: snowflake_usage
+  title: Snowflake Usage
   layout: newspaper
   elements:
   - title: Warehouse Metering History - Total Credits by Month
@@ -197,8 +197,8 @@
     col: 0
     width: 12
     height: 8
-  - title: Credits Used By Warehouse (MTD)
-    name: Credits Used By Warehouse (MTD)
+  - title: Credits Used By Warehouse
+    name: Credits Used By Warehouse
     model: snowflake_usage_block
     explore: warehouse_metering_history
     type: looker_column
@@ -206,7 +206,7 @@
     - warehouse_metering_history.warehouse_name
     - warehouse_metering_history.total_credits_used
     filters:
-      warehouse_metering_history.start_date: 1 months
+      warehouse_metering_history.start_date: 30 days
     sorts:
     - warehouse_metering_history.total_credits_used desc
     limit: 500

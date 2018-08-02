@@ -180,6 +180,7 @@ view: query_history {
     type: count
     filters: {field: start_date value: "this month"}
     alias: [current_mtd_job_count, current_month_job_count]
+    drill_fields: [user_name,warehouse_name,database_name,current_mtd_query_count]
   }
 
   measure: prior_month_total_query_count {
@@ -257,6 +258,7 @@ view: query_history {
     group_label: "Runtime Metrics"
     filters: {field: start_date value: "this month"}
     value_format_name: decimal_2
+    drill_fields: [user_name,warehouse_name,database_name,current_mtd_avg_exec_time]
   }
 
   measure: prior_mtd_avg_exec_time {
