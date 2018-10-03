@@ -6,7 +6,6 @@ view: storage_usage {
   SNOWFLAKE.ACCOUNT_USAGE.STORAGE_USAGE
   {% endif %};;
 
-
   dimension: database_id {
     type: number
     sql: ${TABLE}.DATABASE_ID ;;
@@ -31,16 +30,6 @@ view: storage_usage {
     convert_tz: no
     sql: ${TABLE}.USAGE_DATE ;;
     alias: [read]
-  }
-
-  dimension: stage_bytes {
-    type: number
-    sql: ${TABLE}.STAGE_BYTES ;;
-  }
-
-  dimension: stage_tb {
-    type: number
-    sql: ${stage_bytes} / power(1024,4) ;;
   }
 
   dimension: storage_bytes {
@@ -73,11 +62,7 @@ view: storage_usage {
   }
 
   dimension: total_tb {
-    sql:  {% if database_name._in_query or database_id._in_query %}
-    ${storage_tb} + ${failsafe_tb}
-    {% else %}
-    ${stage_tb} + ${storage_tb} + ${failsafe_tb}
-    {% endif %};;
+    sql: ${storage_tb} + ${failsafe_tb};;
   }
 
   measure: count {
@@ -99,7 +84,7 @@ view: storage_usage {
 
   measure: prior_mtd_billable_tb {
     type: average
-    sql:  ${stage_tb} + ${storage_tb} + ${failsafe_tb};;
+    sql:  ${storage_tb} + ${failsafe_tb};;
     filters: {field: usage_date value: "last month"}
     value_format_name: decimal_4
   }

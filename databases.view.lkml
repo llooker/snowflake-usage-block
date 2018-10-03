@@ -4,7 +4,7 @@ view: databases {
   dimension: id {
     primary_key: yes
     type: number
-    sql: ${TABLE}.ID ;;
+    sql: ${TABLE}.DATABASE_ID ;;
   }
 
   dimension: comment {
