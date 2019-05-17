@@ -55,6 +55,11 @@ view: storage_usage {
     sql: ${storage_bytes} / power(1024,4) ;;
   }
 
+  measure: average_storage_tb {
+    type: average
+    sql: ${storage_tb} ;;
+  }
+
 
   dimension: failsafe_tb {
     type: number
