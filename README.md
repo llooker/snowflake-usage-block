@@ -41,9 +41,7 @@ To access the ACCOUNT_USAGE share, an account administrator must grant the user 
 As an example, The commands below would be used if the user in your looker connection was granted the "looker_role" and that is how you plan on permissioning the SNOWFLAKE shared DB:
 
 ```
-grant usage on database SNOWFLAKE to role looker_role;
-grant usage on schema SNOWFLAKE.ACCOUNT_USAGE to role looker_role;
-grant select on all tables in schema SNOWFLAKE.ACCOUNT_USAGE to role looker_role;
+grant imported privileges on database SNOWFLAKE to role looker_role;
 ```
 
 
