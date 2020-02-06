@@ -179,8 +179,8 @@ view: query_history {
 
   dimension: is_prior_month_mtd {
     type: yesno
-    sql:  EXTRACT(month, ${start_raw}) = EXTRACT(month, current_timestamp()) - 1
-            and ${start_raw} <= dateadd(month, -1, current_timestamp())  ;;
+    sql:    EXTRACT(month, ${start_raw}) = EXTRACT(month, current_timestamp()) - 1 
+                AND EXTRACT(year, ${start_raw}) = EXTRACT(year, current_timestamp()) - 1 ;;
   }
 
   measure: query_count {
