@@ -64,17 +64,20 @@ view: warehouse_metering_history {
 
   measure: count {
     type: count
-    drill_fields: [warehouse_name]
+    drill_fields: [warehouse_name,count]
   }
 
   measure: average_credits_used {
     type: average
     sql:  ${credits_used} ;;
+    drill_fields: [start_date, average_credits_used]
   }
 
   measure: total_credits_used {
     type: sum
     sql: ${credits_used} ;;
+    value_format_name: usd_0
+    drill_fields: [start_date, total_credits_used]
   }
 
   measure: current_mtd_credits_used {
