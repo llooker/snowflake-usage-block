@@ -76,7 +76,6 @@ view: warehouse_metering_history {
   measure: total_credits_used {
     type: sum
     sql: ${credits_used} ;;
-    value_format_name: usd_0
     drill_fields: [start_date, total_credits_used]
   }
 
@@ -84,7 +83,6 @@ view: warehouse_metering_history {
     type: sum
     sql:  ${credits_used} ;;
     filters: {field: start_date value: "this month"}
-    value_format: "$0.000,\" K\""
     drill_fields: [warehouse_name,total_credits_used]
   }
 
