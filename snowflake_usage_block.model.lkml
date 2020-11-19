@@ -26,7 +26,16 @@ explore: query_history {
     sql_on: ${query_history.database_name} = ${databases.database_name} ;;
     relationship: many_to_one
   }
-
+  join: _squad_schema_mapping {
+    sql_on:
+      ${query_history.database_name} = ${_squad_schema_mapping.database_name}
+      AND ${query_history.schema_name} = ${_squad_schema_mapping.schema_name} ;;
+    relationship: many_to_one
+  }
+  join: _sqaud_warehouse_mapping {
+    sql_on: ${query_history.warehouse_name} = ${_sqaud_warehouse_mapping.warehouse_name} ;;
+    relationship: many_to_one
+  }
 #   join: schemata {
 #     type: left_outer
 #     sql_on: ${databases.id} = ${schemata.id} ;;
@@ -46,6 +55,12 @@ explore: load_history {
   fields: [ALL_FIELDS*,-tables.table_name,-tables.id]
   join: tables {
     sql_on: ${load_history.table_id} = ${tables.id} ;;
+    relationship: many_to_one
+  }
+  join: _squad_schema_mapping {
+    sql_on:
+      ${load_history.catalog_name} = ${_squad_schema_mapping.database_name}
+      AND ${load_history.schema_name} = ${_squad_schema_mapping.schema_name} ;;
     relationship: many_to_one
   }
 }
@@ -75,7 +90,16 @@ explore: warehouse_metering_history {
 #
 # explore: table_constraints {}
 #
-# explore: table_storage_metrics {}
+
+explore: table_storage_metrics {
+  join: _squad_schema_mapping {
+    sql_on:
+      ${table_storage_metrics.database_name} = ${_squad_schema_mapping.database_name}
+      AND ${table_storage_metrics.schema_name} = ${_squad_schema_mapping.schema_name} ;;
+    relationship: many_to_one
+  }
+}
+
 #
 # explore: tables {}
 #

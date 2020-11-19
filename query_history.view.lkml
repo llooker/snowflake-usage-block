@@ -32,6 +32,11 @@ view: query_history {
     sql: ${TABLE}.DATABASE_NAME ;;
   }
 
+  dimension: schema_name {
+    type: string
+    sql: ${TABLE}.SCHEMA_NAME ;;
+  }
+
   dimension_group: end {
     type: time
     timeframes: [
