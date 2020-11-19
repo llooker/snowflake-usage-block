@@ -52,7 +52,12 @@ explore: load_history {
 
 explore: storage_usage {}
 
-explore: warehouse_metering_history {}
+explore: warehouse_metering_history {
+  join: _sqaud_warehouse_mapping {
+    sql_on: ${warehouse_metering_history.warehouse_name} = ${_sqaud_warehouse_mapping.warehouse_name} ;;
+    relationship: many_to_one
+  }
+}
 
 # explore: columns {}
 #
