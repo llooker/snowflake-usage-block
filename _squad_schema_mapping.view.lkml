@@ -111,7 +111,7 @@ view: _squad_schema_mapping {
 
   dimension: squad_name {
     type: string
-    sql: ${TABLE}.squad_name ;;
+    sql: IFNULL(NULLIF(${TABLE}.squad_name, ''), 'OTHER') ;;
   }
 
   dimension: database_name {

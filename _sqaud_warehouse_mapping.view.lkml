@@ -68,7 +68,7 @@ view: _sqaud_warehouse_mapping {
 
   dimension: squad_name {
     type: string
-    sql: ${TABLE}.squad_name ;;
+    sql: IFNULL(NULLIF(${TABLE}.squad_name, ''), 'OTHER') ;;
   }
 
   dimension: warehouse_name {
