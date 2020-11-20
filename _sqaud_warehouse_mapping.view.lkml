@@ -1,4 +1,4 @@
-view: _sqaud_warehouse_mapping {
+view: _squad_warehouse_mapping {
   derived_table: {
     sql:
       SELECT *

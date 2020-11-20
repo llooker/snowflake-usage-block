@@ -32,8 +32,8 @@ explore: query_history {
       AND ${query_history.schema_name} = ${_squad_schema_mapping.schema_name} ;;
     relationship: many_to_one
   }
-  join: _sqaud_warehouse_mapping {
-    sql_on: ${query_history.warehouse_name} = ${_sqaud_warehouse_mapping.warehouse_name} ;;
+  join: _squad_warehouse_mapping {
+    sql_on: ${query_history.warehouse_name} = ${_squad_warehouse_mapping.warehouse_name} ;;
     relationship: many_to_one
   }
 #   join: schemata {
@@ -68,8 +68,8 @@ explore: load_history {
 explore: storage_usage {}
 
 explore: warehouse_metering_history {
-  join: _sqaud_warehouse_mapping {
-    sql_on: ${warehouse_metering_history.warehouse_name} = ${_sqaud_warehouse_mapping.warehouse_name} ;;
+  join: _squad_warehouse_mapping {
+    sql_on: ${warehouse_metering_history.warehouse_name} = ${_squad_warehouse_mapping.warehouse_name} ;;
     relationship: many_to_one
   }
 }
