@@ -41,7 +41,7 @@ view: storage_usage {
   }
 
   measure: storage_bytes {
-    type: sum
+    type: average
     sql: ${TABLE}.AVERAGE_DATABASE_BYTES ;;
     value_format_name: decimal_2
   }
@@ -54,7 +54,7 @@ view: storage_usage {
   }
 
   measure: failsafe_bytes {
-    type: sum
+    type: average
     sql: ${TABLE}.AVERAGE_FAILSAFE_BYTES ;;
     value_format_name: decimal_2
   }
@@ -80,7 +80,7 @@ view: storage_usage {
   }
 
   measure: curr_mtd_billable_bytes {
-    type: sum
+    type: average
     sql:  ${TABLE}.AVERAGE_DATABASE_BYTES + ${TABLE}.AVERAGE_FAILSAFE_BYTES;;
     filters: {field: usage_date value: "this month"}
     value_format_name: decimal_2
@@ -93,7 +93,7 @@ view: storage_usage {
   }
 
   measure: prior_mtd_billable_bytes {
-    type: sum
+    type: average
     sql:  ${TABLE}.AVERAGE_DATABASE_BYTES + ${TABLE}.AVERAGE_FAILSAFE_BYTES;;
     filters: {field: usage_date value: "last month"}
     value_format_name: decimal_2
