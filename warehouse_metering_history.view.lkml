@@ -1,12 +1,6 @@
 view: warehouse_metering_history {
   sql_table_name: SNOWFLAKE.ACCOUNT_USAGE.WAREHOUSE_METERING_HISTORY ;;
 
-  dimension: credits_used {
-    type: number
-    sql: ${TABLE}.CREDITS_USED ;;
-    alias: [credits]
-  }
-
   dimension_group: start {
     type: time
     timeframes: [
@@ -46,10 +40,10 @@ view: warehouse_metering_history {
     sql: ${TABLE}.END_TIME ;;
   }
 
-#   dimension: warehouse_id {
-#     type: string
-#     sql: ${TABLE}.WAREHOUSE_ID ;;
-#   }
+  dimension: warehouse_id {
+    type: string
+    sql: ${TABLE}.WAREHOUSE_ID ;;
+  }
 
   dimension: warehouse_name {
     type: string
@@ -69,30 +63,60 @@ view: warehouse_metering_history {
 
   measure: average_credits_used {
     type: average
-    sql:  ${credits_used} ;;
+    sql:  ${TABLE}.CREDITS_USED ;;
+    value_format_name: decimal_2
     drill_fields: [start_date, average_credits_used]
   }
 
   measure: total_credits_used {
     type: sum
-    sql: ${credits_used} ;;
-    value_format_name: usd_0
+    sql:  ${TABLE}.CREDITS_USED ;;
+    value_format_name: decimal_2
     drill_fields: [start_date, total_credits_used]
   }
 
   measure: current_mtd_credits_used {
     type: sum
-    sql:  ${credits_used} ;;
+    sql:  ${TABLE}.CREDITS_USED ;;
     filters: {field: start_date value: "this month"}
-    value_format: "$0.000,\" K\""
+    value_format_name: decimal_2
     drill_fields: [warehouse_name,total_credits_used]
   }
 
   measure: prior_mtd_credits_used {
     type: sum
-    sql:  ${credits_used} ;;
+    sql:  ${TABLE}.CREDITS_USED ;;
     filters: {field: is_prior_month_mtd value: "yes"}
+    value_format_name: decimal_2
+    drill_fields: [warehouse_name,total_credits_used]
+  }
 
+  measure: average_cost_usd {
+    type: number
+    sql:  IFNULL(${average_credits_used}, 0) * 3.05 ;;
+    value_format_name: usd
+    drill_fields: [start_date, average_cost_usd]
+  }
+
+  measure: total_cost_usd {
+    type: number
+    sql:  IFNULL(${total_credits_used}, 0) * 3.05 ;;
+    value_format_name: usd
+    drill_fields: [start_date, total_cost_usd]
+  }
+
+  measure: current_mtd_cost_usd {
+    type: number
+    sql:  IFNULL(${current_mtd_credits_used}, 0) * 3.05 ;;
+    value_format_name: usd
+    drill_fields: [start_date, current_mtd_cost_usd]
+  }
+
+  measure: prior_mtd_cost_usd {
+    type: number
+    sql:  IFNULL(${prior_mtd_credits_used}, 0) * 3.05 ;;
+    value_format_name: usd
+    drill_fields: [start_date, prior_mtd_cost_usd]
   }
 
 }

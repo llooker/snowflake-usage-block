@@ -1,23 +1,32 @@
 view: table_storage_metrics {
   sql_table_name: SNOWFLAKE.ACCOUNT_USAGE.TABLE_STORAGE_METRICS ;;
 
-#   dimension: id {
-#     primary_key: yes
-#     type: number
-#     sql: ${TABLE}.ID ;;
-#   }
-
-  dimension: active_bytes {
+  dimension: table_name {
     type: string
-    sql: ${TABLE}.ACTIVE_BYTES ;;
+    sql: ${TABLE}.TABLE_NAME ;;
   }
 
-  dimension: active_rows {
+  dimension: schema_name {
     type: string
-    sql: ${TABLE}.ACTIVE_ROWS ;;
+    sql: ${TABLE}.TABLE_SCHEMA ;;
   }
 
-  dimension_group: catalog_created {
+  dimension: database_name {
+    type: string
+    sql: ${TABLE}.TABLE_CATALOG ;;
+  }
+
+  dimension: is_transient {
+    type: yesno
+    sql: CASE WHEN ${TABLE}.IS_TRANSIENT = 'YES' THEN TRUE ELSE FALSE END ;;
+  }
+
+  dimension: deleted {
+    type: yesno
+    sql: ${TABLE}.DELETED ;;
+  }
+
+  dimension_group: database_created {
     type: time
     timeframes: [
       raw,
@@ -31,7 +40,7 @@ view: table_storage_metrics {
     sql: ${TABLE}.CATALOG_CREATED ;;
   }
 
-  dimension_group: catalog_dropped {
+  dimension_group: database_dropped {
     type: time
     timeframes: [
       raw,
@@ -43,31 +52,6 @@ view: table_storage_metrics {
       year
     ]
     sql: ${TABLE}.CATALOG_DROPPED ;;
-  }
-
-  dimension: clone_group_id {
-    type: number
-    sql: ${TABLE}.CLONE_GROUP_ID ;;
-  }
-
-  dimension: comment {
-    type: string
-    sql: ${TABLE}.COMMENT ;;
-  }
-
-  dimension: failsafe_bytes {
-    type: string
-    sql: ${TABLE}.FAILSAFE_BYTES ;;
-  }
-
-  dimension: is_transient {
-    type: yesno
-    sql: CASE WHEN ${TABLE}.IS_TRANSIENT = 'YES' THEN TRUE ELSE FALSE END ;;
-  }
-
-  dimension: owned_active_and_time_travel_bytes {
-    type: number
-    sql: ${TABLE}.OWNED_ACTIVE_AND_TIME_TRAVEL_BYTES ;;
   }
 
   dimension_group: schema_created {
@@ -96,12 +80,6 @@ view: table_storage_metrics {
       year
     ]
     sql: ${TABLE}.SCHEMA_DROPPED ;;
-  }
-
-
-  dimension: table_catalog {
-    type: string
-    sql: ${TABLE}.TABLE_CATALOG ;;
   }
 
   dimension_group: table_created {
@@ -146,23 +124,101 @@ view: table_storage_metrics {
     sql: ${TABLE}.TABLE_ENTERED_FAILSAFE ;;
   }
 
-  dimension: table_name {
-    type: string
-    sql: ${TABLE}.TABLE_NAME ;;
-  }
-
-  dimension: table_schema {
-    type: string
-    sql: ${TABLE}.TABLE_SCHEMA ;;
-  }
-
-  dimension: time_travel_bytes {
-    type: number
-    sql: ${TABLE}.TIME_TRAVEL_BYTES ;;
-  }
-
   measure: count {
     type: count
     drill_fields: [table_name]
   }
+
+  measure: time_travel_bytes {
+    type: sum
+    sql: ${TABLE}.TIME_TRAVEL_BYTES ;;
+    value_format_name: decimal_2
+  }
+
+  measure: time_travel_tb {
+    type: number
+    sql: ${time_travel_bytes} / power(1024, 4) ;;
+    value_format_name: decimal_4
+  }
+
+  measure: active_bytes {
+    type: sum
+    sql: ${TABLE}.ACTIVE_BYTES ;;
+    value_format_name: decimal_2
+  }
+
+  measure: active_tb {
+    type: number
+    sql: ${active_bytes} / power(1024, 4) ;;
+    value_format_name: decimal_4
+  }
+
+  measure: failsafe_bytes {
+    type: sum
+    sql: ${TABLE}.FAILSAFE_BYTES ;;
+    value_format_name: decimal_2
+  }
+
+  measure: failsafe_tb {
+    type: number
+    sql: ${failsafe_bytes} / power(1024, 4) ;;
+    value_format_name: decimal_4
+  }
+
+  measure: retained_for_clone_bytes {
+    type: sum
+    sql: ${TABLE}.RETAINED_FOR_CLONE_BYTES ;;
+    value_format_name: decimal_2
+  }
+
+  measure: retained_for_clone_tb {
+    type: number
+    sql: ${retained_for_clone_bytes} / power(1024, 4) ;;
+    value_format_name: decimal_4
+  }
+
+  measure: total_bytes {
+    type: number
+    sql: ${time_travel_bytes} + ${active_bytes} + ${failsafe_bytes} + ${retained_for_clone_bytes} ;;
+    value_format_name: decimal_2
+  }
+
+  measure: total_tb {
+    type: number
+    sql: ${total_bytes} / power(1024, 4) ;;
+    value_format_name: decimal_4
+    alias: [billable_tb]
+  }
+
+  measure: time_travel_cost_usd {
+    type: number
+    sql:  IFNULL(${time_travel_tb}, 0) * 23 ;;
+    value_format_name: usd
+  }
+
+  measure: active_cost_usd {
+    type: number
+    sql:  IFNULL(${active_tb}, 0) * 23 ;;
+    value_format_name: usd
+  }
+
+  measure: failsafe_cost_usd {
+    type: number
+    sql:  IFNULL(${failsafe_tb}, 0) * 23 ;;
+    value_format_name: usd
+  }
+
+  measure: retained_for_clone_cost_usd {
+    type: number
+    sql:  IFNULL(${retained_for_clone_tb}, 0) * 23 ;;
+    value_format_name: usd
+  }
+
+  measure: total_cost_usd {
+    type: number
+    sql:  IFNULL(${total_tb}, 0) * 23 ;;
+    value_format_name: usd
+  }
+
+
 }
