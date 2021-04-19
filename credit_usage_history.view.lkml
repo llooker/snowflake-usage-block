@@ -1,11 +1,9 @@
-include: "warehouse_metering_history.view.lkml"
-
 view: credit_usage_history {
 
   derived_table: {
     sql:
       SELECT
-        CONCAT('WAREHOUSE: ', warehouse_name) AS name,
+        warehouse_name AS name,
         'WAREHOUSE_METERING' AS type,
         credits_used,
         start_time,
@@ -14,7 +12,7 @@ view: credit_usage_history {
       WHERE {% condition date %} start_time {% endcondition %}
       UNION
       SELECT
-        CONCAT('AUTOCLUSTERING: ', table_name) AS name,
+        table_name AS name,
         'AUTOMATIC_CLUSTERING' AS type,
         credits_used,
         start_time,
@@ -25,7 +23,7 @@ view: credit_usage_history {
       )) AS automatic_clustering_history
       UNION
       SELECT
-        'PIPE USAGE' AS name,  -- no names are given unless specifically queried
+        'All Pipes' AS name,  -- no names are given unless specifically queried
         'PIPE_USAGE' AS type,
         credits_used,
         start_time,
