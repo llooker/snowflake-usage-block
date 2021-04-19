@@ -31,11 +31,6 @@ view: pipe_usage_history {
     sql_end: ${end_time_raw} ;;
   }
 
-  dimension: pipe_name {
-    type: string
-    sql: ${TABLE}.pipe_name ;;
-  }
-
   dimension: credits_used {
     type: number
     sql: ${TABLE}.credits_used ;;
