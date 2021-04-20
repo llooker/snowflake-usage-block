@@ -54,6 +54,12 @@ explore: storage_usage {}
 
 explore: warehouse_metering_history {}
 
+explore: automatic_clustering_history {}
+
+explore: pipe_usage_history {}
+
+explore: credit_usage_history {}
+
 # explore: columns {}
 #
 # explore: databases {}
