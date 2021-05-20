@@ -157,6 +157,20 @@ view: task_history {
     group_label: "Counts"
   }
 
+  measure: succeeded_run_count {
+    type: count_distinct
+    sql: CASE WHEN ${succeeded} THEN ${task_run_id} END ;;
+    value_format_name: decimal_0
+    group_label: "Counts"
+  }
+
+  measure: failed_run_count {
+    type: count_distinct
+    sql: CASE WHEN NOT ${succeeded} THEN ${task_run_id} END ;;
+    value_format_name: decimal_0
+    group_label: "Counts"
+  }
+
   measure: total_runtime {
     type: sum
     sql: DATEDIFF('seconds', ${TABLE}.query_start_time, ${TABLE}.completed_time) ;;
