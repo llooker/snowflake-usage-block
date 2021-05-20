@@ -104,3 +104,22 @@ explore: table_storage_metrics {
 # explore: tables {}
 #
 # explore: views {}
+
+explore: task_history {
+  join: query_history {
+    type: left_outer
+    relationship: one_to_one
+    sql_on: ${task_history.query_id} = ${query_history.query_id} ;;
+  }
+  join: _squad_schema_mapping {
+    type: left_outer
+    relationship: many_to_one
+    sql_on: ${query_history.database_name} = ${_squad_schema_mapping.database_name}
+      AND ${query_history.schema_name} = ${_squad_schema_mapping.schema_name} ;;
+  }
+  join: _squad_warehouse_mapping {
+    type: left_outer
+    relationship: many_to_one
+    sql_on: ${query_history.warehouse_name} = ${_squad_warehouse_mapping.warehouse_name} ;;
+  }
+}
