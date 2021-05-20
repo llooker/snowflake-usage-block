@@ -122,6 +122,9 @@ explore: task_history {
     from: query_history
     type: left_outer
     relationship: one_to_many
+    # This join logic assumes there is only one level of hierarchical queries
+    # and covers the case of a task using a procedure that runs several queries.
+    # For more complex scenarios the logic should be revisited.
     sql_on: ${parent_query_history.session_id} = ${children_query_history.session_id}
       AND ${parent_query_history.query_id} != ${children_query_history.query_id}
       AND ${children_query_history.start_raw} BETWEEN ${parent_query_history.start_raw} AND ${parent_query_history.end_raw}
