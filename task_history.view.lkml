@@ -51,6 +51,12 @@ view: task_history {
     group_label: "Execution"
   }
 
+  dimension: succeeded {
+    type: yesno
+    sql: LOWER(${TABLE}.state) = 'succeeded' ;;
+    group_label: "Execution"
+  }
+
   dimension: error_code {
     type: number
     sql: ${TABLE}.error_code ;;
