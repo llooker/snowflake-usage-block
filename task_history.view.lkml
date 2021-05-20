@@ -2,6 +2,13 @@ view: task_history {
 
   sql_table_name: snowflake.account_usage.task_history ;;
 
+  dimension: task_run_id {
+    type: string
+    hidden: yes
+    primary_key: yes
+    sql: ${TABLE}.root_task_id || '-' || ${TABLE}.run_id ;;
+  }
+
   dimension: task_name {
     type: string
     sql: ${TABLE}.name ;;
@@ -139,7 +146,7 @@ view: task_history {
 
   measure: run_count {
     type: count_distinct
-    sql: ${TABLE}.root_task_id || '-' || ${TABLE}.run_id ;;
+    sql: ${task_run_id} ;;
     value_format_name: decimal_0
     group_label: "Counts"
   }
