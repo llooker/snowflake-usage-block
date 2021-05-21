@@ -104,3 +104,42 @@ explore: table_storage_metrics {
 # explore: tables {}
 #
 # explore: views {}
+
+explore: task_history {
+  always_filter: {
+    filters: [
+      task_history.scheduled_date: "7 days"
+    ]
+  }
+  join: parent_query_history {
+    from: query_history
+    type: left_outer
+    relationship: one_to_one
+    sql_on: ${task_history.query_id} = ${parent_query_history.query_id} ;;
+    sql_where: {%condition task_history.scheduled_date %} ${parent_query_history.start_date} {% endcondition %} ;;
+  }
+  join: children_query_history {
+    from: query_history
+    type: left_outer
+    relationship: one_to_many
+    # This join logic assumes there is only one level of hierarchical queries
+    # and covers the case of a task using a procedure that runs several queries.
+    # For more complex scenarios the logic should be revisited.
+    sql_on: ${parent_query_history.session_id} = ${children_query_history.session_id}
+      AND ${parent_query_history.query_id} != ${children_query_history.query_id}
+      AND ${children_query_history.start_raw} BETWEEN ${parent_query_history.start_raw} AND ${parent_query_history.end_raw}
+      AND ${children_query_history.end_raw} BETWEEN ${parent_query_history.start_raw} AND ${parent_query_history.end_raw} ;;
+    sql_where: {%condition task_history.scheduled_date %} ${children_query_history.start_date} {% endcondition %} ;;
+  }
+  join: _squad_schema_mapping {
+    type: left_outer
+    relationship: many_to_one
+    sql_on: ${parent_query_history.database_name} = ${_squad_schema_mapping.database_name}
+      AND ${parent_query_history.schema_name} = ${_squad_schema_mapping.schema_name} ;;
+  }
+  join: _squad_warehouse_mapping {
+    type: left_outer
+    relationship: many_to_one
+    sql_on: ${parent_query_history.warehouse_name} = ${_squad_warehouse_mapping.warehouse_name} ;;
+  }
+}

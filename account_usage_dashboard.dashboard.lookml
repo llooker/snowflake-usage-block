@@ -761,7 +761,7 @@
     model: snowflake_usage_block
     explore: query_history
     type: looker_bar
-    fields: [query_history.user_name, query_history.average_execution_time, query_history.median_queued_overload_time]
+    fields: [query_history.user_name, query_history.average_execution_time]
     filters:
       query_history.start_date: 1 months
     sorts: [query_history.average_execution_time desc]
