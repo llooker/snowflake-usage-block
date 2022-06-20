@@ -259,6 +259,20 @@ view: query_history {
     group_label: "Runtime"
   }
 
+  measure: average_queued_time {
+    type: average
+    sql: ${TABLE}.queued_provisioning_time + ${TABLE}.queued_repair_time + ${TABLE}.queued_overload_time ;;
+    value_format_name: decimal_2
+    group_label: "Runtime"
+  }
+
+  measure: total_queued_time {
+    type: sum
+    sql: ${TABLE}.queued_provisioning_time + ${TABLE}.queued_repair_time + ${TABLE}.queued_overload_time ;;
+    value_format_name: decimal_2
+    group_label: "Runtime"
+  }
+
   measure: current_mtd_avg_exec_time {
     type: average
     sql: ${TABLE}.execution_time ;;
