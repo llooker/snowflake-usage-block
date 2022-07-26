@@ -36,6 +36,12 @@ explore: query_history {
     sql_on: ${query_history.warehouse_name} = ${_squad_warehouse_mapping.warehouse_name} ;;
     relationship: many_to_one
   }
+  join: tag_references {
+    sql_on:
+      ${query_history.database_name} = ${tag_references.object_database}
+      AND ${query_history.schema_name} = ${tag_references.object_schema} ;;
+    relationship: many_to_one
+  }
 #   join: schemata {
 #     type: left_outer
 #     sql_on: ${databases.id} = ${schemata.id} ;;
@@ -63,6 +69,14 @@ explore: load_history {
       AND ${load_history.schema_name} = ${_squad_schema_mapping.schema_name} ;;
     relationship: many_to_one
   }
+  join: tag_references {
+    sql_on:
+      ${load_history.catalog_name} = ${tag_references.object_database}
+      AND ${load_history.schema_name} = ${tag_references.object_schema}
+      AND ${load_history.table_namne} = ${tag_references.object_name}
+      AND ${tag_references.domain} = 'TABLE' ;;
+    relationship: many_to_one
+  }
 }
 
 explore: storage_usage {}
@@ -70,6 +84,12 @@ explore: storage_usage {}
 explore: warehouse_metering_history {
   join: _squad_warehouse_mapping {
     sql_on: ${warehouse_metering_history.warehouse_name} = ${_squad_warehouse_mapping.warehouse_name} ;;
+    relationship: many_to_one
+  }
+  join: tag_references {
+    sql_on:
+      ${warehouse_metering_history.warehouse_name} = ${tag_references.object_name}
+      AND ${tag_references.domain} = 'WAREHOUSE' ;;
     relationship: many_to_one
   }
 }
@@ -96,6 +116,14 @@ explore: table_storage_metrics {
     sql_on:
       ${table_storage_metrics.database_name} = ${_squad_schema_mapping.database_name}
       AND ${table_storage_metrics.schema_name} = ${_squad_schema_mapping.schema_name} ;;
+    relationship: many_to_one
+  }
+  join: tag_references {
+    sql_on:
+      ${table_storage_metrics.database_name} = ${tag_references.object_database}
+      AND ${table_storage_metrics.schema_name} = ${tag_references.object_schema}
+      AND ${table_storage_metrics.table_namne} = ${tag_references.object_name}
+      AND ${tag_references.domain} = 'TABLE' ;;
     relationship: many_to_one
   }
 }
@@ -141,5 +169,13 @@ explore: task_history {
     type: left_outer
     relationship: many_to_one
     sql_on: ${parent_query_history.warehouse_name} = ${_squad_warehouse_mapping.warehouse_name} ;;
+  }
+  join: tag_references {
+    sql_on:
+      ${task_history.database_name} = ${tag_references.object_database}
+      AND ${task_history.schema_name} = ${tag_references.object_schema}
+      AND ${task_history.name} = ${tag_references.object_name}
+      AND ${tag_references.domain} = 'TASK' ;;
+    relationship: many_to_one
   }
 }
